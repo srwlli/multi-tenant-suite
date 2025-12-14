@@ -1,7 +1,7 @@
 {
   "id": "main-dashboard",
   "name": "Main Dashboard",
-  "description": "Default dashboard layout with Coming Soon cards",
+  "description": "Default dashboard layout with Coming Soon card",
   "columns": 12,
   "gap": 16,
   "widgets": [
@@ -9,33 +9,11 @@
       "widgetId": "coming-soon-card",
       "instanceId": "coming-soon-1",
       "column": 1,
-      "colSpan": 4,
+      "colSpan": 12,
       "config": {
-        "title": "Analytics",
-        "description": "Track your business metrics and KPIs in real-time.",
-        "icon": "chart"
-      }
-    },
-    {
-      "widgetId": "coming-soon-card",
-      "instanceId": "coming-soon-2",
-      "column": 5,
-      "colSpan": 4,
-      "config": {
-        "title": "Notifications",
-        "description": "Stay updated with important alerts and messages.",
-        "icon": "bell"
-      }
-    },
-    {
-      "widgetId": "coming-soon-card",
-      "instanceId": "coming-soon-3",
-      "column": 9,
-      "colSpan": 4,
-      "config": {
-        "title": "Calendar",
-        "description": "Manage your schedule and upcoming events.",
-        "icon": "calendar"
+        "title": "Coming Soon",
+        "description": "this is coming soon.",
+        "icon": "rocket"
       }
     }
   ]
