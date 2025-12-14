@@ -2,7 +2,7 @@
     "META_DOCUMENTATION": {
         "feature_name": "business-dashboard-platform",
         "schema_version": "1.0.0",
-        "version": "5.1.0",
+        "version": "5.2.0",
         "status": "approved",
         "generated_by": "Lloyd (AI Coordinator)",
         "generated_at": "2025-12-13",
@@ -25,6 +25,11 @@
                 "version": "5.1.0",
                 "date": "2025-12-14",
                 "notes": "Widget placement clarification: Theme Toggle widget only on settings route (icon in header + full in Appearance section), dashboard.json contains only Coming Soon Card widget instances"
+            },
+            {
+                "version": "5.2.0",
+                "date": "2025-12-14",
+                "notes": "Simplified dashboard to single Coming Soon card (title: 'Coming Soon', description: 'this is coming soon.', full-width stacked layout). Fixed ThemeToggle icon rendering with proper typing and fallbacks."
             }
         ]
     },
@@ -620,7 +625,7 @@
                     "type": "implementation",
                     "priority": "high",
                     "files": ["apps/web/app/settings/page.tsx"],
-                    "acceptance_criteria": ["Root page uses LayoutEngine with Coming Soon Cards only", "Settings has icon-only ThemeToggle in header", "Settings has full ThemeToggle in Appearance section"]
+                    "acceptance_criteria": ["Root page uses LayoutEngine with single Coming Soon card (full-width, stacked layout)", "Settings has icon-only ThemeToggle in header", "Settings has full ThemeToggle in Appearance section"]
                 },
                 {
                     "id": "DESKTOP-001",
@@ -791,7 +796,7 @@
                     "tasks": ["WEB-001", "WEB-002", "WEB-003"],
                     "deliverables": [
                         "Working web app",
-                        "Dashboard (at root /) with Coming Soon Card widgets only",
+                        "Dashboard (at root /) with single Coming Soon card (title: 'Coming Soon', description: 'this is coming soon.', full-width stacked layout)",
                         "Settings page with icon-only theme toggle in header + full theme toggle in Appearance section"
                     ]
                 },
@@ -842,7 +847,7 @@
                 "phase_4": ["packages/core builds", "No circular dependencies"],
                 "phase_5": ["packages/config builds", "JSON validates against schema"],
                 "phase_6": ["packages/widgets builds", "Only imports @platform/sdk"],
-                "phase_7": ["turbo dev --filter=web runs", "Dashboard renders Coming Soon Cards (no theme toggle on dashboard)", "Theme toggle works on settings page (icon in header, full in Appearance)", "Widgets registered in app-level registry"],
+                "phase_7": ["turbo dev --filter=web runs", "Dashboard renders single Coming Soon card (full-width, stacked layout)", "Theme toggle works on settings page (icon in header, full in Appearance)", "Widgets registered in app-level registry"],
                 "phase_8": ["Electron opens", ".exe packages successfully"],
                 "phase_9": ["PWA installs on Chrome/Edge", "Service worker registers", "manifest.json loads", "App icons display"],
                 "phase_10": ["npm install completes", "turbo build succeeds", "apps/web/out/ exists", ".exe file exists in apps/desktop/dist/"]
@@ -868,8 +873,8 @@
                 },
                 {
                     "criterion": "LayoutEngine renders from config",
-                    "verification": "Dashboard loads widgets defined in dashboard.json",
-                    "metric": "Widgets visible"
+                    "verification": "Dashboard loads single Coming Soon card from dashboard.json",
+                    "metric": "Single full-width Coming Soon card visible with stacked layout"
                 },
                 {
                     "criterion": "Web app runs",
