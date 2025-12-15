@@ -74,3 +74,8 @@ export { Badge, badgeVariants, type BadgeProps } from "./badge";
 // Navigation Components
 export { Nav, NavItem, NavGroup, type NavProps } from "./nav";
 export { ThemeToggle, type ThemeToggleProps } from "./theme-toggle";
+export {
+  TenantSwitcher,
+  type TenantSwitcherProps,
+  type TenantInfo,
+} from "./tenant-switcher";

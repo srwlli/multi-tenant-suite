@@ -15,6 +15,7 @@ interface ProvidersProps {
 export function Providers({ children }: ProvidersProps) {
   const { theme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
+  const [tenantId, setTenantId] = useState("default");
 
   // Handle mount to avoid hydration mismatch
   useEffect(() => {
@@ -43,6 +44,28 @@ export function Providers({ children }: ProvidersProps) {
     };
   }, [setTheme]);
 
+  // Listen for tenant change events from TenantSwitcher
+  useEffect(() => {
+    const handleTenantChange = (event: CustomEvent<{ tenantId: string }>) => {
+      const newTenantId = event.detail.tenantId;
+      if (newTenantId) {
+        setTenantId(newTenantId);
+      }
+    };
+
+    document.addEventListener(
+      "platform:tenant-change",
+      handleTenantChange as EventListener
+    );
+
+    return () => {
+      document.removeEventListener(
+        "platform:tenant-change",
+        handleTenantChange as EventListener
+      );
+    };
+  }, []);
+
   // Avoid hydration mismatch
   if (!mounted) {
     return null;
@@ -52,7 +75,8 @@ export function Providers({ children }: ProvidersProps) {
     <PlatformProvider
       registry={registry}
       defaultTheme={(theme as "light" | "dark" | "system") ?? "system"}
-      tenantId="default"
+      tenantId={tenantId}
+      onTenantChange={setTenantId}
     >
       {children}
     </PlatformProvider>

@@ -1,7 +1,8 @@
 # Dev-Mode Tenant Switcher - Deliverables
 
-> **Status:** 🚧 Not Started
+> **Status:** ✅ Completed
 > **Plan:** `plan.json`
+> **Completed:** 2025-12-15
 
 ---
 
@@ -9,14 +10,17 @@
 
 ### Tasks
 
-- [ ] **TS-001**: Create TenantSwitcher component using DropdownMenu
+- [x] **TS-001**: Create TenantSwitcher component using DropdownMenu
   - File: `packages/ui/src/components/tenant-switcher.tsx`
+  - Uses DropdownMenu from Radix UI
+  - Dispatches `platform:tenant-change` custom event
 
-- [ ] **TS-002**: Export TenantSwitcher from UI package
+- [x] **TS-002**: Export TenantSwitcher from UI package
   - File: `packages/ui/src/components/index.ts`
+  - Exports: `TenantSwitcher`, `TenantSwitcherProps`, `TenantInfo`
 
 ### Deliverables
-- [ ] TenantSwitcher dropdown component
+- [x] TenantSwitcher dropdown component
 
 ---
 
@@ -24,14 +28,18 @@
 
 ### Tasks
 
-- [ ] **TS-003**: Add setTenantId to PlatformProvider context
+- [x] **TS-003**: Add setTenantId to PlatformProvider context
   - File: `packages/core/src/platform/PlatformProvider.tsx`
+  - Added `setTenantId` to `PlatformContextValue` interface
+  - Added `onTenantChange` prop to `PlatformProviderProps`
 
-- [ ] **TS-004**: Add tenantId state and event listener to Providers
+- [x] **TS-004**: Add tenantId state and event listener to Providers
   - File: `apps/web/app/providers.tsx`
+  - Added `useState` for tenantId (default: "default")
+  - Added event listener for `platform:tenant-change`
 
 ### Deliverables
-- [ ] Dynamic tenantId in context
+- [x] Dynamic tenantId in context
 
 ---
 
@@ -39,18 +47,20 @@
 
 ### Tasks
 
-- [ ] **TS-005**: Add TenantSwitcher to Dashboard header actions
+- [x] **TS-005**: Add TenantSwitcher to Dashboard header actions
   - File: `apps/web/app/page.tsx`
+  - Added `TenantSwitcherButton` component
+  - Added `DashboardActions` wrapper with both switchers
 
 ### Deliverables
-- [ ] Working tenant switcher in header
+- [x] Working tenant switcher in header
 
 ---
 
 ## Success Criteria
 
-- [ ] TenantSwitcher dropdown visible in header
-- [ ] Dropdown lists available tenants from config
-- [ ] Selecting tenant updates context for all widgets
-- [ ] Build succeeds
-- [ ] No console errors
+- [x] TenantSwitcher dropdown visible in header
+- [x] Dropdown lists available tenants from config
+- [x] Selecting tenant updates context for all widgets
+- [x] Build succeeds
+- [x] All 257 tests pass

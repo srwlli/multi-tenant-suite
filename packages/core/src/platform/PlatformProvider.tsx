@@ -24,6 +24,8 @@ export interface PlatformContextValue {
   setTheme: (mode: "light" | "dark" | "system") => void;
   /** Current tenant ID */
   tenantId: string;
+  /** Set tenant ID (for dev-mode switching) */
+  setTenantId: (tenantId: string) => void;
   /** Widget registry */
   registry: WidgetRegistry | null;
   /** Loading state */
@@ -42,6 +44,8 @@ export interface PlatformProviderProps {
   defaultTheme?: "light" | "dark" | "system";
   /** Tenant identifier */
   tenantId?: string;
+  /** Callback when tenant changes (for dev-mode switching) */
+  onTenantChange?: (tenantId: string) => void;
   /** Widget registry instance */
   registry?: WidgetRegistry | null;
   /** Force specific capabilities (for testing) */
@@ -66,6 +70,7 @@ export function PlatformProvider({
   children,
   defaultTheme = "system",
   tenantId = "default",
+  onTenantChange,
   registry = null,
   capabilities: forcedCapabilities,
 }: PlatformProviderProps): ReactNode {
@@ -191,16 +196,24 @@ export function PlatformProvider({
     [themeMode, resolvedTheme]
   );
 
+  const setTenantId = useMemo(
+    () => (newTenantId: string) => {
+      onTenantChange?.(newTenantId);
+    },
+    [onTenantChange]
+  );
+
   const contextValue = useMemo<PlatformContextValue>(
     () => ({
       capabilities,
       theme,
       setTheme: setThemeMode,
       tenantId,
+      setTenantId,
       registry,
       loading,
     }),
-    [capabilities, theme, tenantId, registry, loading]
+    [capabilities, theme, tenantId, setTenantId, registry, loading]
   );
 
   return (
