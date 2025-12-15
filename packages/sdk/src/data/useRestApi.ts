@@ -45,7 +45,7 @@ function setCache<T>(key: string, data: T, ttl: number): void {
   cache.set(key, { data, timestamp: Date.now(), ttl });
 }
 
-function invalidateCache(key: string): void {
+function invalidateCacheEntry(key: string): void {
   cache.delete(key);
 }
 
@@ -81,28 +81,11 @@ export function useRestApi<T = unknown>(
     timeout = DEFAULT_TIMEOUT,
   } = config;
 
-  // Generate cache key from config
-  const cacheKey = `rest:${method}:${url}:${JSON.stringify(body || {})}`;
-
-  // Memoize object dependencies to prevent infinite re-renders
-  const headersKey = JSON.stringify(headers);
-  const bodyKey = JSON.stringify(body);
-
-  // Refs for callbacks (prevents re-renders when callbacks change)
-  const transformRef = useRef(transform);
-  const onSuccessRef = useRef(onSuccess);
-  const onErrorRef = useRef(onError);
-
-  // Keep refs in sync with latest values
-  useEffect(() => {
-    transformRef.current = transform;
-    onSuccessRef.current = onSuccess;
-    onErrorRef.current = onError;
-  });
+  // Generate stable cache key
+  const cacheKey = `rest:${method}:${url}:${JSON.stringify(body ?? {})}`;
 
   // Local state
   const [data, setData] = useState<T | undefined>(() => {
-    // Check cache on init
     const cached = getCached<T>(cacheKey);
     return cached ?? initialData;
   });
@@ -114,92 +97,132 @@ export function useRestApi<T = unknown>(
   const refreshIntervalRef = useRef<NodeJS.Timeout | null>(null);
   const mountedRef = useRef(true);
 
-  // Fetch function
-  const fetchData = useCallback(
-    async (skipCache = false) => {
-      // Check cache first (unless skipCache)
-      if (!skipCache && isCacheValid(cacheKey)) {
-        const cached = getCached<T>(cacheKey);
-        if (cached !== undefined) {
-          setData(cached);
-          setStatus("success");
-          return;
-        }
+  // Store ALL config and callbacks in refs to avoid dependency changes
+  // This is the React-recommended pattern for stable callbacks
+  const configRef = useRef({
+    url,
+    method,
+    headers,
+    body,
+    timeout,
+    cacheTtl,
+    cacheKey,
+    transform,
+    onSuccess,
+    onError,
+  });
+
+  // Sync refs with latest values (no deps = runs every render, but doesn't trigger re-renders)
+  configRef.current = {
+    url,
+    method,
+    headers,
+    body,
+    timeout,
+    cacheTtl,
+    cacheKey,
+    transform,
+    onSuccess,
+    onError,
+  };
+
+  // Fetch function - stable reference with empty deps, uses refs for all values
+  const fetchData = useCallback(async (skipCache = false) => {
+    const {
+      url: fetchUrl,
+      method: fetchMethod,
+      headers: fetchHeaders,
+      body: fetchBody,
+      timeout: fetchTimeout,
+      cacheTtl: fetchCacheTtl,
+      cacheKey: fetchCacheKey,
+      transform: fetchTransform,
+      onSuccess: fetchOnSuccess,
+      onError: fetchOnError,
+    } = configRef.current;
+
+    // Check cache first (unless skipCache)
+    if (!skipCache && isCacheValid(fetchCacheKey)) {
+      const cached = getCached<T>(fetchCacheKey);
+      if (cached !== undefined) {
+        setData(cached);
+        setStatus("success");
+        return;
+      }
+    }
+
+    // Abort any existing request
+    if (abortControllerRef.current) {
+      abortControllerRef.current.abort();
+    }
+
+    // Create new abort controller
+    abortControllerRef.current = new AbortController();
+    const signal = abortControllerRef.current.signal;
+
+    // Set loading state
+    setStatus("loading");
+
+    try {
+      // Create timeout
+      const timeoutId = setTimeout(() => {
+        abortControllerRef.current?.abort();
+      }, fetchTimeout);
+
+      // Make request
+      const response = await fetch(fetchUrl, {
+        method: fetchMethod,
+        headers: {
+          "Content-Type": "application/json",
+          ...fetchHeaders,
+        },
+        body: fetchBody ? JSON.stringify(fetchBody) : undefined,
+        signal,
+      });
+
+      clearTimeout(timeoutId);
+
+      if (!response.ok) {
+        throw new Error(`HTTP ${response.status}: ${response.statusText}`);
       }
 
-      // Abort any existing request
-      if (abortControllerRef.current) {
-        abortControllerRef.current.abort();
+      // Parse response
+      const rawData = await response.json();
+      const transformedData = fetchTransform
+        ? fetchTransform(rawData)
+        : (rawData as T);
+
+      // Only update if still mounted
+      if (mountedRef.current) {
+        // Update cache
+        setCache(fetchCacheKey, transformedData, fetchCacheTtl);
+
+        // Update local state
+        setData(transformedData);
+        setStatus("success");
+        setError(null);
+
+        // Call success callback
+        fetchOnSuccess?.(transformedData);
+      }
+    } catch (err) {
+      // Ignore abort errors
+      if (err instanceof Error && err.name === "AbortError") {
+        return;
       }
 
-      // Create new abort controller
-      abortControllerRef.current = new AbortController();
-      const signal = abortControllerRef.current.signal;
+      // Only update if still mounted
+      if (mountedRef.current) {
+        const fetchError =
+          err instanceof Error ? err : new Error(String(err));
+        setError(fetchError);
+        setStatus("error");
 
-      // Set loading state
-      setStatus("loading");
-
-      try {
-        // Create timeout
-        const timeoutId = setTimeout(() => {
-          abortControllerRef.current?.abort();
-        }, timeout);
-
-        // Make request
-        const response = await fetch(url, {
-          method,
-          headers: {
-            "Content-Type": "application/json",
-            ...headers,
-          },
-          body: body ? JSON.stringify(body) : undefined,
-          signal,
-        });
-
-        clearTimeout(timeoutId);
-
-        if (!response.ok) {
-          throw new Error(`HTTP ${response.status}: ${response.statusText}`);
-        }
-
-        // Parse response
-        const rawData = await response.json();
-        const transformedData = transformRef.current
-          ? transformRef.current(rawData)
-          : (rawData as T);
-
-        // Only update if still mounted
-        if (mountedRef.current) {
-          // Update cache
-          setCache(cacheKey, transformedData, cacheTtl);
-
-          // Update local state
-          setData(transformedData);
-          setStatus("success");
-          setError(null);
-
-          // Call success callback
-          onSuccessRef.current?.(transformedData);
-        }
-      } catch (err) {
-        // Ignore abort errors
-        if (err instanceof Error && err.name === "AbortError") {
-          return;
-        }
-
-        // Only update if still mounted
-        if (mountedRef.current) {
-          const error = err instanceof Error ? err : new Error(String(err));
-          setError(error);
-          setStatus("error");
-
-          // Call error callback
-          onErrorRef.current?.(error);
-        }
+        // Call error callback
+        fetchOnError?.(fetchError);
       }
-    },
-    [url, method, headersKey, bodyKey, timeout, cacheTtl, cacheKey]
-  );
+    }
+  }, []); // Empty deps - uses refs for all values
 
   // Refetch function (uses cache)
   const refetch = useCallback(async () => {
@@ -208,9 +231,9 @@ export function useRestApi<T = unknown>(
 
   // Invalidate and refetch function
   const invalidate = useCallback(async () => {
-    invalidateCache(cacheKey);
+    invalidateCacheEntry(configRef.current.cacheKey);
     await fetchData(true);
-  }, [fetchData, cacheKey]);
+  }, [fetchData]);
 
   // Fetch on mount
   useEffect(() => {
