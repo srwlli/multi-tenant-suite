@@ -7,6 +7,8 @@ import {
   nativeTheme,
 } from "electron";
 import * as fs from "fs/promises";
+import * as fsSync from "fs";
+import * as path from "path";
 
 /**
  * Register all IPC handlers
@@ -91,6 +93,96 @@ export function registerIpcHandlers(
       }
     }
   );
+
+  ipcMain.handle("fs:readBinary", async (_event, filePath: string) => {
+    try {
+      const buffer = await fs.readFile(filePath);
+      return { success: true, data: buffer };
+    } catch (error) {
+      return { success: false, error: String(error) };
+    }
+  });
+
+  ipcMain.handle("fs:listDirectory", async (_event, dirPath: string) => {
+    try {
+      const entries = await fs.readdir(dirPath, { withFileTypes: true });
+      const files = await Promise.all(
+        entries.map(async (entry) => {
+          const fullPath = path.join(dirPath, entry.name);
+          const stats = await fs.stat(fullPath);
+          return {
+            name: entry.name,
+            path: fullPath,
+            size: stats.size,
+            isDirectory: entry.isDirectory(),
+            modifiedAt: stats.mtime.getTime(),
+            createdAt: stats.birthtime.getTime(),
+          };
+        })
+      );
+      return { success: true, files };
+    } catch (error) {
+      return { success: false, error: String(error) };
+    }
+  });
+
+  ipcMain.handle("fs:exists", async (_event, filePath: string) => {
+    try {
+      await fs.access(filePath);
+      return { success: true, exists: true };
+    } catch {
+      return { success: true, exists: false };
+    }
+  });
+
+  // File watchers (store for cleanup)
+  const fileWatchers = new Map<string, fsSync.FSWatcher>();
+
+  ipcMain.handle("fs:watchFile", (_event, filePath: string, watchId: string) => {
+    try {
+      // Clean up existing watcher if any
+      if (fileWatchers.has(watchId)) {
+        fileWatchers.get(watchId)?.close();
+      }
+
+      const watcher = fsSync.watch(filePath, async (eventType) => {
+        if (eventType === "change") {
+          try {
+            const content = await fs.readFile(filePath, "utf-8");
+            mainWindow.webContents.send(`fs:watch:${watchId}`, {
+              type: "change",
+              path: filePath,
+              content,
+            });
+          } catch {
+            mainWindow.webContents.send(`fs:watch:${watchId}`, {
+              type: "change",
+              path: filePath,
+            });
+          }
+        } else if (eventType === "rename") {
+          mainWindow.webContents.send(`fs:watch:${watchId}`, {
+            type: "rename",
+            path: filePath,
+          });
+        }
+      });
+
+      fileWatchers.set(watchId, watcher);
+      return { success: true };
+    } catch (error) {
+      return { success: false, error: String(error) };
+    }
+  });
+
+  ipcMain.handle("fs:unwatchFile", (_event, watchId: string) => {
+    const watcher = fileWatchers.get(watchId);
+    if (watcher) {
+      watcher.close();
+      fileWatchers.delete(watchId);
+    }
+    return { success: true };
+  });
 
   // Notifications
   ipcMain.handle(

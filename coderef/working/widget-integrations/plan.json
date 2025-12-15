@@ -237,21 +237,21 @@
     },
     "9_implementation_checklist": {
       "phase_1": [
-        "[ ] Create packages/sdk/src/data/types.ts with DataSource, DataSourceConfig interfaces"
+        "[x] Create packages/sdk/src/data/types.ts with DataSource, DataSourceConfig interfaces"
       ],
       "phase_2": [
-        "[ ] Implement useRestApi with fetch, refresh interval (use dataStore from core for caching)",
-        "[ ] Implement useWebSocket with connect, reconnect, send, disconnect"
+        "[x] Implement useRestApi with fetch, refresh interval, built-in caching",
+        "[x] Implement useWebSocket with connect, reconnect, send, disconnect"
       ],
       "phase_3": [
-        "[ ] Add fs:read, fs:write, fs:watch IPC handlers",
-        "[ ] Expose fileSystem API in preload.ts",
-        "[ ] Implement useFileSystem hook with platform detection"
+        "[x] Add fs:read, fs:write, fs:watch IPC handlers",
+        "[x] Expose fileSystem API in preload.ts",
+        "[x] Implement useFileSystem hook with platform detection"
       ],
       "phase_4": [
-        "[ ] Create data/index.ts barrel export",
-        "[ ] Add exports to sdk/index.ts",
-        "[ ] Extend WidgetManifest with dataSources field"
+        "[x] Create data/index.ts barrel export",
+        "[x] Add exports to sdk/index.ts",
+        "[x] Extend WidgetManifest with dataSources field"
       ]
     }
   }

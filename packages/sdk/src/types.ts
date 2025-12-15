@@ -1,5 +1,6 @@
 import type { ComponentType } from "react";
 import type { WidgetPermissions } from "./permissions";
+import type { WidgetDataSources } from "./data/types";
 
 /**
  * Widget manifest - metadata that describes a widget
@@ -23,6 +24,8 @@ export interface WidgetManifest {
   tags?: string[];
   /** Permissions required by this widget */
   permissions?: WidgetPermissions;
+  /** Data sources configuration (REST, WebSocket, FileSystem) */
+  dataSources?: WidgetDataSources;
   /** Default configuration values */
   defaultConfig?: Record<string, unknown>;
   /** Minimum/maximum size constraints */
