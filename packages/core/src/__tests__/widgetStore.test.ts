@@ -9,6 +9,9 @@ import {
   selectWidgetInstance,
   selectWidgetLoading,
   selectAllWidgetIds,
+  selectWidgetsByTenant,
+  selectWidgetIdsByTenant,
+  selectWidgetInstanceForTenant,
 } from "../store/widgetStore";
 
 describe("widgetStore", () => {
@@ -26,9 +29,10 @@ describe("widgetStore", () => {
   });
 
   describe("addWidget", () => {
-    it("should add a widget instance", () => {
+    it("should add a widget instance with tenantId", () => {
       useWidgetStore.getState().addWidget({
         id: "instance-1",
+        tenantId: "tenant-a",
         widgetId: "my-widget",
         config: { title: "Test" },
       });
@@ -36,6 +40,7 @@ describe("widgetStore", () => {
       const instance = useWidgetStore.getState().instances["instance-1"];
       expect(instance).toBeDefined();
       expect(instance.id).toBe("instance-1");
+      expect(instance.tenantId).toBe("tenant-a");
       expect(instance.widgetId).toBe("my-widget");
       expect(instance.config).toEqual({ title: "Test" });
       expect(instance.loadingState).toBe("idle");
@@ -46,11 +51,13 @@ describe("widgetStore", () => {
     it("should add multiple widgets", () => {
       useWidgetStore.getState().addWidget({
         id: "instance-1",
+        tenantId: "tenant-a",
         widgetId: "widget-a",
         config: {},
       });
       useWidgetStore.getState().addWidget({
         id: "instance-2",
+        tenantId: "tenant-a",
         widgetId: "widget-b",
         config: {},
       });
@@ -65,6 +72,7 @@ describe("widgetStore", () => {
     it("should remove a widget instance", () => {
       useWidgetStore.getState().addWidget({
         id: "instance-1",
+        tenantId: "tenant-a",
         widgetId: "my-widget",
         config: {},
       });
@@ -77,6 +85,7 @@ describe("widgetStore", () => {
     it("should clear focused widget if removed widget was focused", () => {
       useWidgetStore.getState().addWidget({
         id: "instance-1",
+        tenantId: "tenant-a",
         widgetId: "my-widget",
         config: {},
       });
@@ -90,11 +99,13 @@ describe("widgetStore", () => {
     it("should not affect focused widget if different widget removed", () => {
       useWidgetStore.getState().addWidget({
         id: "instance-1",
+        tenantId: "tenant-a",
         widgetId: "my-widget",
         config: {},
       });
       useWidgetStore.getState().addWidget({
         id: "instance-2",
+        tenantId: "tenant-a",
         widgetId: "my-widget",
         config: {},
       });
@@ -110,6 +121,7 @@ describe("widgetStore", () => {
     it("should update widget config", () => {
       useWidgetStore.getState().addWidget({
         id: "instance-1",
+        tenantId: "tenant-a",
         widgetId: "my-widget",
         config: { title: "Original" },
       });
@@ -122,6 +134,7 @@ describe("widgetStore", () => {
     it("should merge config with existing values", () => {
       useWidgetStore.getState().addWidget({
         id: "instance-1",
+        tenantId: "tenant-a",
         widgetId: "my-widget",
         config: { title: "Test", color: "blue" },
       });
@@ -136,6 +149,7 @@ describe("widgetStore", () => {
     it("should update lastUpdated timestamp", () => {
       useWidgetStore.getState().addWidget({
         id: "instance-1",
+        tenantId: "tenant-a",
         widgetId: "my-widget",
         config: {},
       });
@@ -165,6 +179,7 @@ describe("widgetStore", () => {
     it("should set loading state", () => {
       useWidgetStore.getState().addWidget({
         id: "instance-1",
+        tenantId: "tenant-a",
         widgetId: "my-widget",
         config: {},
       });
@@ -177,6 +192,7 @@ describe("widgetStore", () => {
     it("should set error state with message", () => {
       useWidgetStore.getState().addWidget({
         id: "instance-1",
+        tenantId: "tenant-a",
         widgetId: "my-widget",
         config: {},
       });
@@ -191,6 +207,7 @@ describe("widgetStore", () => {
     it("should clear error when setting success", () => {
       useWidgetStore.getState().addWidget({
         id: "instance-1",
+        tenantId: "tenant-a",
         widgetId: "my-widget",
         config: {},
       });
@@ -220,8 +237,8 @@ describe("widgetStore", () => {
 
   describe("clearWidgets", () => {
     it("should remove all widgets", () => {
-      useWidgetStore.getState().addWidget({ id: "instance-1", widgetId: "w1", config: {} });
-      useWidgetStore.getState().addWidget({ id: "instance-2", widgetId: "w2", config: {} });
+      useWidgetStore.getState().addWidget({ id: "instance-1", tenantId: "tenant-a", widgetId: "w1", config: {} });
+      useWidgetStore.getState().addWidget({ id: "instance-2", tenantId: "tenant-a", widgetId: "w2", config: {} });
       useWidgetStore.getState().setFocusedWidget("instance-1");
 
       useWidgetStore.getState().clearWidgets();
@@ -235,6 +252,7 @@ describe("widgetStore", () => {
     beforeEach(() => {
       useWidgetStore.getState().addWidget({
         id: "instance-1",
+        tenantId: "tenant-a",
         widgetId: "my-widget",
         config: { title: "Test" },
       });
@@ -267,12 +285,92 @@ describe("widgetStore", () => {
     });
 
     it("selectAllWidgetIds should return all instance IDs", () => {
-      useWidgetStore.getState().addWidget({ id: "instance-2", widgetId: "w2", config: {} });
+      useWidgetStore.getState().addWidget({ id: "instance-2", tenantId: "tenant-a", widgetId: "w2", config: {} });
 
       const ids = selectAllWidgetIds(useWidgetStore.getState());
 
       expect(ids).toContain("instance-1");
       expect(ids).toContain("instance-2");
+    });
+  });
+
+  describe("tenant isolation selectors", () => {
+    beforeEach(() => {
+      // Tenant A widgets
+      useWidgetStore.getState().addWidget({
+        id: "tenant-a-widget-1",
+        tenantId: "tenant-a",
+        widgetId: "chart",
+        config: { title: "A Chart 1" },
+      });
+      useWidgetStore.getState().addWidget({
+        id: "tenant-a-widget-2",
+        tenantId: "tenant-a",
+        widgetId: "table",
+        config: { title: "A Table" },
+      });
+      // Tenant B widgets
+      useWidgetStore.getState().addWidget({
+        id: "tenant-b-widget-1",
+        tenantId: "tenant-b",
+        widgetId: "chart",
+        config: { title: "B Chart 1" },
+      });
+    });
+
+    it("selectWidgetsByTenant should return only widgets for that tenant", () => {
+      const tenantAWidgets = selectWidgetsByTenant("tenant-a")(useWidgetStore.getState());
+      const tenantBWidgets = selectWidgetsByTenant("tenant-b")(useWidgetStore.getState());
+
+      expect(tenantAWidgets).toHaveLength(2);
+      expect(tenantAWidgets.every((w) => w.tenantId === "tenant-a")).toBe(true);
+      expect(tenantBWidgets).toHaveLength(1);
+      expect(tenantBWidgets[0].tenantId).toBe("tenant-b");
+    });
+
+    it("selectWidgetsByTenant should return empty array for non-existent tenant", () => {
+      const widgets = selectWidgetsByTenant("tenant-c")(useWidgetStore.getState());
+
+      expect(widgets).toEqual([]);
+    });
+
+    it("selectWidgetIdsByTenant should return only IDs for that tenant", () => {
+      const tenantAIds = selectWidgetIdsByTenant("tenant-a")(useWidgetStore.getState());
+      const tenantBIds = selectWidgetIdsByTenant("tenant-b")(useWidgetStore.getState());
+
+      expect(tenantAIds).toContain("tenant-a-widget-1");
+      expect(tenantAIds).toContain("tenant-a-widget-2");
+      expect(tenantAIds).not.toContain("tenant-b-widget-1");
+      expect(tenantBIds).toEqual(["tenant-b-widget-1"]);
+    });
+
+    it("selectWidgetInstanceForTenant should return instance only if tenant matches", () => {
+      // Should return instance when tenant matches
+      const correctTenant = selectWidgetInstanceForTenant("tenant-a", "tenant-a-widget-1")(
+        useWidgetStore.getState()
+      );
+      expect(correctTenant).toBeDefined();
+      expect(correctTenant?.id).toBe("tenant-a-widget-1");
+
+      // Should return undefined when tenant doesn't match
+      const wrongTenant = selectWidgetInstanceForTenant("tenant-b", "tenant-a-widget-1")(
+        useWidgetStore.getState()
+      );
+      expect(wrongTenant).toBeUndefined();
+    });
+
+    it("tenant A cannot see tenant B widget instances", () => {
+      const tenantAWidgets = selectWidgetsByTenant("tenant-a")(useWidgetStore.getState());
+      const tenantBIds = tenantAWidgets.map((w) => w.id);
+
+      // Tenant A should not have any tenant B widgets
+      expect(tenantBIds).not.toContain("tenant-b-widget-1");
+
+      // Explicitly check cross-tenant access is blocked
+      const crossTenantAccess = selectWidgetInstanceForTenant("tenant-a", "tenant-b-widget-1")(
+        useWidgetStore.getState()
+      );
+      expect(crossTenantAccess).toBeUndefined();
     });
   });
 });

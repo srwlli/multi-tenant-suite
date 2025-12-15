@@ -1,0 +1,183 @@
+{
+  "META_DOCUMENTATION": {
+    "feature_name": "multi-tenant-widgets",
+    "schema_version": "1.0.0",
+    "version": "1.0.0",
+    "status": "completed",
+    "generated_by": "Claude Code",
+    "has_context": true,
+    "has_analysis": true,
+    "created_at": "2025-12-15",
+    "completed_at": "2025-12-15"
+  },
+  "UNIVERSAL_PLANNING_STRUCTURE": {
+    "0_preparation": {
+      "foundation_docs": [
+        "packages/core/src/store/widgetStore.ts",
+        "packages/core/src/store/types.ts",
+        "packages/ui/src/components/theme-toggle.tsx",
+        "packages/widgets/src/theme-toggle/Widget.tsx",
+        "packages/widgets/src/theme-toggle/manifest.ts",
+        "coderef/ARCHITECTURE-GUIDE.md"
+      ],
+      "reference_patterns": [
+        "Zustand store with tenant isolation",
+        "Widget wrapping UI component pattern",
+        "WidgetProvider context injection"
+      ]
+    },
+    "1_executive_summary": {
+      "description": "Refactor widget system for multi-tenant support and fix theme-toggle widget to properly use UI component.",
+      "goal": "Add tenant isolation to widgetStore and refactor theme-toggle widget to use @platform/ui component instead of duplicated code.",
+      "scope": "Widget store tenant isolation + theme-toggle widget refactor",
+      "estimated_complexity": "medium"
+    },
+    "2_risk_assessment": {
+      "overall_risk": "low",
+      "risks": [
+        {
+          "risk": "Tenant isolation may break existing widget state access",
+          "severity": "medium",
+          "mitigation": "Add backward-compatible selectors that default to current tenant"
+        },
+        {
+          "risk": "Theme-toggle widget refactor may change behavior",
+          "severity": "low",
+          "mitigation": "Component already has same functionality, just need to wire props correctly"
+        }
+      ]
+    },
+    "3_current_state_analysis": {
+      "existing_architecture": "widgetStore is global singleton with no tenant awareness. theme-toggle widget duplicates UI component code instead of importing it.",
+      "files_to_modify": [
+        {"path": "packages/core/src/store/widgetStore.ts", "purpose": "Add tenant isolation"},
+        {"path": "packages/core/src/store/types.ts", "purpose": "Add tenantId to WidgetInstance type"},
+        {"path": "packages/widgets/src/theme-toggle/Widget.tsx", "purpose": "Refactor to use @platform/ui ThemeToggle"}
+      ],
+      "files_to_create": []
+    },
+    "4_key_features": {
+      "features": [
+        {
+          "id": "F1",
+          "name": "Tenant-Isolated Widget Store",
+          "description": "Add tenantId to widget instances and provide tenant-scoped selectors"
+        },
+        {
+          "id": "F2",
+          "name": "Theme Toggle Widget Refactor",
+          "description": "Refactor widget to import and use ThemeToggle component from @platform/ui"
+        }
+      ]
+    },
+    "5_task_id_system": {
+      "workorder": {
+        "id": "WO-MTW-001",
+        "name": "Multi-Tenant Widget Support",
+        "feature_dir": "coderef/working/multi-tenant-widgets"
+      },
+      "tasks": [
+        {
+          "id": "MTW-001",
+          "workorder_id": "WO-MTW-001",
+          "description": "Add tenantId field to WidgetInstance type",
+          "file": "packages/core/src/store/types.ts",
+          "feature_id": "F1",
+          "priority": "high",
+          "dependencies": []
+        },
+        {
+          "id": "MTW-002",
+          "workorder_id": "WO-MTW-001",
+          "description": "Update widgetStore to require tenantId on addWidget",
+          "file": "packages/core/src/store/widgetStore.ts",
+          "feature_id": "F1",
+          "priority": "high",
+          "dependencies": ["MTW-001"]
+        },
+        {
+          "id": "MTW-003",
+          "workorder_id": "WO-MTW-001",
+          "description": "Add tenant-scoped selectors to widgetStore",
+          "file": "packages/core/src/store/widgetStore.ts",
+          "feature_id": "F1",
+          "priority": "high",
+          "dependencies": ["MTW-002"]
+        },
+        {
+          "id": "MTW-004",
+          "workorder_id": "WO-MTW-001",
+          "description": "Update widgetStore tests for tenant isolation",
+          "file": "packages/core/src/__tests__/widgetStore.test.ts",
+          "feature_id": "F1",
+          "priority": "medium",
+          "dependencies": ["MTW-003"]
+        },
+        {
+          "id": "MTW-005",
+          "workorder_id": "WO-MTW-001",
+          "description": "Refactor theme-toggle widget to use @platform/ui ThemeToggle component",
+          "file": "packages/widgets/src/theme-toggle/Widget.tsx",
+          "feature_id": "F2",
+          "priority": "high",
+          "dependencies": []
+        }
+      ]
+    },
+    "6_implementation_phases": {
+      "phases": [
+        {
+          "phase": 1,
+          "name": "Widget Store Tenant Isolation",
+          "description": "Add tenant support to widgetStore",
+          "tasks": ["MTW-001", "MTW-002", "MTW-003", "MTW-004"],
+          "deliverables": ["Tenant-scoped widget instance management", "Updated tests"]
+        },
+        {
+          "phase": 2,
+          "name": "Theme Toggle Widget Refactor",
+          "description": "Refactor widget to use UI component",
+          "tasks": ["MTW-005"],
+          "deliverables": ["Clean widget using @platform/ui ThemeToggle"]
+        }
+      ]
+    },
+    "7_testing_strategy": {
+      "unit_tests": [
+        "widgetStore should isolate instances by tenantId",
+        "selectWidgetsByTenant should only return widgets for that tenant",
+        "addWidget should require tenantId",
+        "theme-toggle widget should render ThemeToggle component"
+      ],
+      "integration_tests": [
+        "Multiple tenants should have independent widget states",
+        "Theme toggle should work same as before after refactor"
+      ]
+    },
+    "8_success_criteria": {
+      "criteria": [
+        "widgetStore supports tenant isolation",
+        "Tenant A cannot see Tenant B widget instances",
+        "theme-toggle widget uses @platform/ui component (< 20 lines)",
+        "All existing tests pass",
+        "Build succeeds"
+      ]
+    },
+    "9_implementation_checklist": {
+      "phase_1": [
+        "[x] Add tenantId: string to WidgetInstance interface",
+        "[x] Update addWidget to require tenantId parameter",
+        "[x] Add selectWidgetsByTenant(tenantId) selector",
+        "[x] Add selectWidgetInstanceForTenant(tenantId, instanceId) selector",
+        "[x] Add selectWidgetIdsByTenant(tenantId) selector",
+        "[x] Add tests for tenant isolation (5 new tests)"
+      ],
+      "phase_2": [
+        "[x] Import ThemeToggle from @platform/ui in widget",
+        "[x] Replace 107 lines with 21 lines (80% reduction)",
+        "[x] Map widget config/theme to component props",
+        "[x] Verify functionality matches (build + tests pass)"
+      ]
+    }
+  }
+}

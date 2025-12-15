@@ -107,3 +107,18 @@ export const selectWidgetLoading = (instanceId: string) => (state: WidgetStore) 
 
 export const selectAllWidgetIds = (state: WidgetStore) =>
   Object.keys(state.instances);
+
+// Tenant-scoped selectors for multi-tenant isolation
+export const selectWidgetsByTenant = (tenantId: string) => (state: WidgetStore) =>
+  Object.values(state.instances).filter((instance) => instance.tenantId === tenantId);
+
+export const selectWidgetIdsByTenant = (tenantId: string) => (state: WidgetStore) =>
+  Object.values(state.instances)
+    .filter((instance) => instance.tenantId === tenantId)
+    .map((instance) => instance.id);
+
+export const selectWidgetInstanceForTenant =
+  (tenantId: string, instanceId: string) => (state: WidgetStore) => {
+    const instance = state.instances[instanceId];
+    return instance?.tenantId === tenantId ? instance : undefined;
+  };

@@ -1,0 +1,189 @@
+{
+  "META_DOCUMENTATION": {
+    "feature_name": "tenant-switcher",
+    "schema_version": "1.0.0",
+    "version": "1.0.0",
+    "status": "planned",
+    "generated_by": "Claude Code",
+    "has_context": true,
+    "has_analysis": true,
+    "created_at": "2025-12-15"
+  },
+  "UNIVERSAL_PLANNING_STRUCTURE": {
+    "0_preparation": {
+      "foundation_docs": [
+        "packages/ui/src/components/dropdown.tsx",
+        "packages/ui/src/components/theme-toggle.tsx",
+        "packages/core/src/platform/PlatformProvider.tsx",
+        "apps/web/app/providers.tsx",
+        "apps/web/app/page.tsx",
+        "packages/config/src/tenants/default.json"
+      ],
+      "reference_patterns": [
+        "Custom event pattern (platform:theme-change)",
+        "DropdownMenu from Radix UI",
+        "PlatformProvider context injection"
+      ]
+    },
+    "1_executive_summary": {
+      "description": "Add a dev-mode tenant switcher dropdown to the dashboard header for switching between tenant configurations during development.",
+      "goal": "Allow developers to quickly switch tenants to test widgets in different tenant contexts without editing code.",
+      "scope": "UI component + PlatformProvider context extension + Dashboard integration",
+      "estimated_complexity": "low"
+    },
+    "2_risk_assessment": {
+      "overall_risk": "low",
+      "risks": [
+        {
+          "risk": "Tenant switch may not reload widget state correctly",
+          "severity": "low",
+          "mitigation": "Custom event triggers PlatformProvider re-render, widgets will re-mount"
+        }
+      ]
+    },
+    "3_current_state_analysis": {
+      "existing_architecture": "tenantId is hardcoded as 'default' in providers.tsx. PlatformProvider accepts tenantId but has no setter. Theme toggle uses custom event pattern that works well.",
+      "files_to_modify": [
+        {"path": "packages/core/src/platform/PlatformProvider.tsx", "purpose": "Add setTenantId to context interface"},
+        {"path": "apps/web/app/providers.tsx", "purpose": "Add tenantId state and event listener"},
+        {"path": "apps/web/app/page.tsx", "purpose": "Add TenantSwitcher to Dashboard actions"}
+      ],
+      "files_to_create": [
+        {"path": "packages/ui/src/components/tenant-switcher.tsx", "purpose": "New TenantSwitcher dropdown component"}
+      ]
+    },
+    "4_key_features": {
+      "features": [
+        {
+          "id": "F1",
+          "name": "TenantSwitcher Component",
+          "description": "Dropdown component using DropdownMenu that lists available tenants and dispatches change events"
+        },
+        {
+          "id": "F2",
+          "name": "Dynamic Tenant Context",
+          "description": "Extend PlatformProvider to support dynamic tenant switching via state"
+        },
+        {
+          "id": "F3",
+          "name": "Header Integration",
+          "description": "Add TenantSwitcher to dashboard header next to theme toggle"
+        }
+      ]
+    },
+    "5_task_id_system": {
+      "workorder": {
+        "id": "WO-TS-001",
+        "name": "Dev-Mode Tenant Switcher",
+        "feature_dir": "coderef/working/tenant-switcher"
+      },
+      "tasks": [
+        {
+          "id": "TS-001",
+          "workorder_id": "WO-TS-001",
+          "description": "Create TenantSwitcher component using DropdownMenu",
+          "file": "packages/ui/src/components/tenant-switcher.tsx",
+          "feature_id": "F1",
+          "priority": "high",
+          "dependencies": []
+        },
+        {
+          "id": "TS-002",
+          "workorder_id": "WO-TS-001",
+          "description": "Export TenantSwitcher from UI package",
+          "file": "packages/ui/src/components/index.ts",
+          "feature_id": "F1",
+          "priority": "high",
+          "dependencies": ["TS-001"]
+        },
+        {
+          "id": "TS-003",
+          "workorder_id": "WO-TS-001",
+          "description": "Add setTenantId to PlatformProvider context",
+          "file": "packages/core/src/platform/PlatformProvider.tsx",
+          "feature_id": "F2",
+          "priority": "high",
+          "dependencies": []
+        },
+        {
+          "id": "TS-004",
+          "workorder_id": "WO-TS-001",
+          "description": "Add tenantId state and event listener to Providers",
+          "file": "apps/web/app/providers.tsx",
+          "feature_id": "F2",
+          "priority": "high",
+          "dependencies": ["TS-003"]
+        },
+        {
+          "id": "TS-005",
+          "workorder_id": "WO-TS-001",
+          "description": "Add TenantSwitcher to Dashboard header actions",
+          "file": "apps/web/app/page.tsx",
+          "feature_id": "F3",
+          "priority": "high",
+          "dependencies": ["TS-002", "TS-004"]
+        }
+      ]
+    },
+    "6_implementation_phases": {
+      "phases": [
+        {
+          "phase": 1,
+          "name": "Component Creation",
+          "description": "Create and export TenantSwitcher component",
+          "tasks": ["TS-001", "TS-002"],
+          "deliverables": ["TenantSwitcher dropdown component"]
+        },
+        {
+          "phase": 2,
+          "name": "Context Extension",
+          "description": "Extend PlatformProvider and Providers for dynamic tenant",
+          "tasks": ["TS-003", "TS-004"],
+          "deliverables": ["Dynamic tenantId in context"]
+        },
+        {
+          "phase": 3,
+          "name": "Integration",
+          "description": "Add TenantSwitcher to dashboard header",
+          "tasks": ["TS-005"],
+          "deliverables": ["Working tenant switcher in header"]
+        }
+      ]
+    },
+    "7_testing_strategy": {
+      "unit_tests": [],
+      "integration_tests": [
+        "Tenant switcher dropdown opens and shows available tenants",
+        "Selecting tenant updates PlatformProvider context",
+        "Widgets re-render with new tenant context"
+      ]
+    },
+    "8_success_criteria": {
+      "criteria": [
+        "TenantSwitcher dropdown visible in header",
+        "Dropdown lists available tenants from config",
+        "Selecting tenant updates context for all widgets",
+        "Build succeeds",
+        "No console errors"
+      ]
+    },
+    "9_implementation_checklist": {
+      "phase_1": [
+        "[ ] Create tenant-switcher.tsx with DropdownMenu",
+        "[ ] Accept tenantId, availableTenants, onTenantChange props",
+        "[ ] Dispatch platform:tenant-change custom event",
+        "[ ] Export from components/index.ts"
+      ],
+      "phase_2": [
+        "[ ] Add setTenantId to PlatformContextValue interface",
+        "[ ] Add useState for tenantId in Providers",
+        "[ ] Add useEffect to listen for platform:tenant-change events",
+        "[ ] Pass dynamic tenantId to PlatformProvider"
+      ],
+      "phase_3": [
+        "[ ] Import TenantSwitcher in page.tsx",
+        "[ ] Add to Dashboard actions alongside theme toggle"
+      ]
+    }
+  }
+}

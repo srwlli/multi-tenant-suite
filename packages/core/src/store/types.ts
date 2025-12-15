@@ -53,6 +53,8 @@ export type WidgetLoadingState = "idle" | "loading" | "success" | "error";
 export interface WidgetInstance {
   /** Unique instance ID */
   id: string;
+  /** Tenant ID for multi-tenant isolation */
+  tenantId: string;
   /** Widget type from registry */
   widgetId: string;
   /** Instance configuration */
