@@ -1,5 +1,14 @@
 @import "tailwindcss";
 
+/* Source paths for Tailwind v4 to scan */
+@source "../../../../apps/web/app/**/*.{js,ts,jsx,tsx,mdx}";
+@source "../../../../apps/web/components/**/*.{js,ts,jsx,tsx,mdx}";
+@source "../../../core/src/**/*.{js,ts,jsx,tsx,mdx}";
+@source "../../../sdk/src/**/*.{js,ts,jsx,tsx,mdx}";
+@source "../../../widgets/src/**/*.{js,ts,jsx,tsx,mdx}";
+@source "../../../config/src/**/*.{js,ts,jsx,tsx,mdx}";
+@source "../../**/*.{js,ts,jsx,tsx,mdx}";
+
 /*
  * Business Dashboard Design System
  * CSS Variables for Light/Dark theming

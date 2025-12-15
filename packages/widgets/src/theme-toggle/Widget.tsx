@@ -12,30 +12,20 @@ type ThemeMode = "light" | "dark" | "system";
  */
 const ThemeIcons: Record<string, React.ReactNode> = {
   light: (
-    <svg className="w-5 h-5 text-current" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
-      <path
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"
-      />
+    <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="12" cy="12" r="4" stroke="currentColor" strokeWidth="2"/>
+      <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
     </svg>
   ),
   dark: (
-    <svg className="w-5 h-5 text-current" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
-      <path
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"
-      />
+    <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
     </svg>
   ),
   system: (
-    <svg className="w-5 h-5 text-current" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
-      <path
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
-      />
+    <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <rect x="2" y="3" width="20" height="14" rx="2" stroke="currentColor" strokeWidth="2"/>
+      <path d="M8 21h8M12 17v4" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
     </svg>
   ),
 };
@@ -75,7 +65,7 @@ export function Widget({ className = "" }: WidgetProps) {
     return (
       <button
         onClick={() => handleThemeChange(nextMode)}
-        className={`flex items-center justify-center gap-2 px-3 py-2 rounded-lg bg-secondary hover:bg-secondary/80 text-secondary-foreground transition-colors ${className}`}
+        className={`flex items-center justify-center gap-2 p-2 rounded-lg border border-gray-200 dark:border-gray-700 bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-200 transition-colors ${className}`}
         title={`Current: ${currentMode}. Click to switch to ${nextMode}`}
       >
         {icon}
@@ -90,17 +80,17 @@ export function Widget({ className = "" }: WidgetProps) {
   return (
     <div className={`flex flex-col gap-2 ${className}`}>
       {showLabels && (
-        <span className="text-sm font-medium text-foreground">Theme</span>
+        <span className="text-sm font-medium text-gray-900 dark:text-gray-100">Theme</span>
       )}
-      <div className="flex rounded-lg bg-secondary p-1 gap-1">
+      <div className="flex rounded-lg bg-gray-100 dark:bg-gray-800 p-1 gap-1">
         {modes.map((mode) => (
           <button
             key={mode}
             onClick={() => handleThemeChange(mode)}
             className={`flex items-center gap-2 px-3 py-2 rounded-md text-sm transition-colors ${
               theme.mode === mode
-                ? "bg-background text-foreground shadow-sm"
-                : "text-muted-foreground hover:text-foreground"
+                ? "bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 shadow-sm"
+                : "text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100"
             }`}
             title={`Switch to ${mode} mode`}
           >
@@ -109,7 +99,7 @@ export function Widget({ className = "" }: WidgetProps) {
           </button>
         ))}
       </div>
-      <span className="text-xs text-muted-foreground">
+      <span className="text-xs text-gray-500 dark:text-gray-400">
         Current: {theme.resolved} mode
       </span>
     </div>

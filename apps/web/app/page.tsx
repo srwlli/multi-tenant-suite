@@ -1,8 +1,23 @@
 "use client";
 
-import { Dashboard } from "@platform/core";
+import { Dashboard, usePlatform } from "@platform/core";
 import { layouts } from "@platform/config";
-import Link from "next/link";
+import { WidgetProvider } from "@platform/sdk";
+import { ThemeToggle, themeToggleManifest } from "@platform/widgets";
+
+function ThemeToggleButton() {
+  const { theme, capabilities } = usePlatform();
+  return (
+    <WidgetProvider
+      manifest={themeToggleManifest}
+      config={{ showLabels: false, compact: true }}
+      theme={theme}
+      capabilities={capabilities}
+    >
+      <ThemeToggle />
+    </WidgetProvider>
+  );
+}
 
 export default function HomePage() {
   return (
@@ -10,14 +25,7 @@ export default function HomePage() {
       <Dashboard
         layout={layouts.dashboard}
         title="Business Dashboard"
-        actions={
-          <Link
-            href="/settings"
-            className="px-4 py-2 bg-secondary text-secondary-foreground rounded-lg hover:bg-secondary/80 transition-colors"
-          >
-            Settings
-          </Link>
-        }
+        actions={<ThemeToggleButton />}
       />
     </div>
   );

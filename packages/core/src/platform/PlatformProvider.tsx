@@ -124,6 +124,19 @@ export function PlatformProvider({
     return () => mediaQuery.removeEventListener("change", handleChange);
   }, [themeMode]);
 
+  // Listen for theme change events from widgets
+  useEffect(() => {
+    const handleThemeChange = (event: Event) => {
+      const customEvent = event as CustomEvent<{ mode: "light" | "dark" | "system" }>;
+      setThemeMode(customEvent.detail.mode);
+    };
+
+    document.addEventListener("platform:theme-change", handleThemeChange);
+    return () => {
+      document.removeEventListener("platform:theme-change", handleThemeChange);
+    };
+  }, []);
+
   const theme: WidgetTheme = useMemo(
     () => ({
       mode: themeMode,

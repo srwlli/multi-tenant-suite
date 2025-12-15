@@ -16,6 +16,13 @@ const nextConfig: NextConfig = {
   // Enable static export for Electron production builds
   output: "export",
 
+  // Use relative paths for Electron file:// protocol compatibility
+  basePath: "",
+  assetPrefix: "./",
+
+  // Generate proper folder structure for file:// navigation
+  trailingSlash: true,
+
   // Transpile monorepo packages
   transpilePackages: [
     "@platform/sdk",
