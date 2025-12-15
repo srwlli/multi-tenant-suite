@@ -16,12 +16,14 @@
         "packages/sdk/src/useWidget.tsx",
         "packages/sdk/src/useWidgetStorage.tsx",
         "packages/core/src/dashboard/WidgetRegistry.ts",
-        "packages/core/src/platform/PlatformProvider.tsx"
+        "packages/core/src/platform/PlatformProvider.tsx",
+        "packages/core/src/store/dataStore.ts"
       ],
       "reference_patterns": [
         "useWidgetStorage hook pattern for data hooks",
         "WidgetProvider context pattern for data context",
-        "IPC handler pattern in desktop/src/ipc.ts"
+        "IPC handler pattern in desktop/src/ipc.ts",
+        "dataStore pattern for caching (useDataStore from @platform/core)"
       ]
     },
     "1_executive_summary": {
@@ -71,7 +73,7 @@
         {
           "id": "F1",
           "name": "REST API Hook",
-          "description": "useRestApi hook for fetching data from REST endpoints with caching, refresh, and error handling"
+          "description": "useRestApi hook for fetching data from REST endpoints with refresh and error handling (uses dataStore from core for caching)"
         },
         {
           "id": "F2",
@@ -109,7 +111,7 @@
         {
           "id": "DATA-002",
           "workorder_id": "WO-WIDGET-INTEGRATIONS-001",
-          "description": "Implement useRestApi hook",
+          "description": "Implement useRestApi hook (integrate with dataStore from core for caching)",
           "file": "packages/sdk/src/data/useRestApi.ts",
           "feature_id": "F1",
           "priority": "high",
@@ -238,7 +240,7 @@
         "[ ] Create packages/sdk/src/data/types.ts with DataSource, DataSourceConfig interfaces"
       ],
       "phase_2": [
-        "[ ] Implement useRestApi with fetch, caching, refresh interval",
+        "[ ] Implement useRestApi with fetch, refresh interval (use dataStore from core for caching)",
         "[ ] Implement useWebSocket with connect, reconnect, send, disconnect"
       ],
       "phase_3": [
