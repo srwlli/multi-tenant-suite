@@ -1,0 +1,35 @@
+{
+  "feature_name": "storybook-setup",
+  "description": "Add Storybook to the Business Dashboard monorepo for documenting and testing UI components and widgets visually",
+  "goal": "Document and test UI components and widgets visually",
+  "requirements": [
+    "Storybook 8 for packages/ui",
+    "Support for React 19",
+    "Integration with Turborepo",
+    "Essential addons (a11y, viewport, controls, docs)",
+    "Widget stories with context mocking"
+  ],
+  "out_of_scope": [
+    "Storybook for all packages initially"
+  ],
+  "constraints": [
+    "Must work with existing monorepo structure"
+  ],
+  "decisions": {},
+  "success_criteria": {},
+  "_metadata": {
+    "workorder_id": "WO-STORYBOOK-SETUP-001",
+    "workorder_assigned_at": "2026-01-10T11:13:34.617964+00:00",
+    "workorder_assigned_by": "gather_context"
+  },
+  "_uds": {
+    "generated_by": "coderef-workflow v2.0.0",
+    "document_type": "Feature Context",
+    "workorder_id": "WO-STORYBOOK-SETUP-001",
+    "feature_id": "storybook-setup",
+    "last_updated": "2026-01-10",
+    "ai_assistance": true,
+    "status": "DRAFT",
+    "next_review": "2026-02-09"
+  }
+}

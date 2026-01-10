@@ -1,0 +1,197 @@
+{
+  "foundation_docs": {
+    "available": [
+      "README.md (root)",
+      "API.md (coderef/foundation-docs)",
+      "ARCHITECTURE.md (coderef/foundation-docs)",
+      "COMPONENTS.md (coderef/foundation-docs)",
+      "SCHEMA.md (coderef/foundation-docs)"
+    ],
+    "missing": [
+      "USER-GUIDE.md"
+    ]
+  },
+  "foundation_doc_content": {
+    "ARCHITECTURE.md": {
+      "location": "coderef\\foundation-docs",
+      "preview": "# Architecture Documentation\n\n## Purpose\n\nThis document describes the overall system architecture, design patterns, platform abstraction, state management, widget system, and architectural decisions for the Business Dashboard platform.\n\n## Overview\n\nThe Business Dashboard is a platform-agnostic dashboard application built as a monorepo using modern web technologies. It supports multiple deployment targets (Web, PWA, Electron Desktop) and provides a widget-based architecture for building customiz",
+      "headers": [
+        "Architecture Documentation",
+        "Purpose",
+        "Overview",
+        "Key Architectural Principles",
+        "System Architecture",
+        "High-Level Architecture",
+        "Monorepo Structure",
+        "Package Dependencies",
+        "Design Patterns",
+        "1. Platform Abstraction Pattern"
+      ],
+      "size": 15912
+    },
+    "API.md": {
+      "location": "coderef\\foundation-docs",
+      "preview": "# API Documentation\n\n## Purpose\n\nThis document provides a comprehensive reference for all APIs, IPC handlers, and data access methods available in the Business Dashboard platform. It covers Electron IPC channels, SDK methods, data hooks, and store actions that act as APIs.\n\n## Overview\n\nThe Business Dashboard platform exposes APIs through multiple layers:\n\n1. **Electron IPC Handlers** - Desktop-specific APIs for window management, file system, and native features\n2. **SDK Data Hooks** - React ho",
+      "headers": [
+        "API Documentation",
+        "Purpose",
+        "Overview",
+        "Workflow",
+        "API Architecture",
+        "Electron IPC API",
+        "Window Management",
+        "Theme Management",
+        "File System API",
+        "Notifications API"
+      ],
+      "size": 17519
+    },
+    "COMPONENTS.md": {
+      "location": "coderef\\foundation-docs",
+      "preview": "# Components Documentation\n\n## Purpose\n\nThis document provides a comprehensive reference for all UI components, widget components, and their hierarchy in the Business Dashboard platform. It covers component props, usage patterns, and relationships between components.\n\n## Overview\n\nThe Business Dashboard component system is organized into three main layers:\n\n1. **UI Components** (`@platform/ui`) - Reusable building blocks (buttons, cards, inputs, etc.)\n2. **Widget Components** (`@platform/widgets",
+      "headers": [
+        "Components Documentation",
+        "Purpose",
+        "Overview",
+        "Workflow",
+        "Component Hierarchy",
+        "Core Components",
+        "Dashboard",
+        "LayoutEngine",
+        "WidgetRegistry",
+        "PlatformProvider"
+      ],
+      "size": 16630
+    },
+    "SCHEMA.md": {
+      "location": "coderef\\foundation-docs",
+      "preview": "# Schema Documentation\n\n## Purpose\n\nThis document defines all data models, TypeScript interfaces, entity relationships, and validation schemas used throughout the Business Dashboard platform. It serves as a reference for understanding the structure of data flowing through the system.\n\n## Overview\n\nThe Business Dashboard uses a type-safe schema system built on TypeScript interfaces. The schemas are organized into several categories:\n\n1. **Widget System** - Widget manifests, definitions, and layou",
+      "headers": [
+        "Schema Documentation",
+        "Purpose",
+        "Overview",
+        "Workflow",
+        "Entity Relationship Diagram",
+        "Widget System Schemas",
+        "WidgetManifest",
+        "WidgetDefinition",
+        "WidgetProps",
+        "WidgetContext"
+      ],
+      "size": 17501
+    },
+    "README.md": {
+      "location": "root",
+      "preview": "# Business Dashboard\n\nA platform-agnostic dashboard application built with React, TypeScript, and modern web technologies. Supports deployment as a web application, PWA, or Electron desktop app.\n\n## Features\n\n- **Platform Agnostic** - Single codebase works on Web, PWA, and Electron Desktop\n- **Widget-Based Architecture** - Compose dashboards from configurable, self-contained widgets\n- **Multi-Tenant Support** - Isolated configurations for different tenants\n- **Type-Safe** - Full TypeScript cover",
+      "headers": [
+        "Business Dashboard",
+        "Features",
+        "Architecture Summary",
+        "Key Components",
+        "Prerequisites",
+        "Getting Started",
+        "Installation",
+        "Development",
+        "or specifically for web",
+        "Building"
+      ],
+      "size": 9570
+    }
+  },
+  "inventory_data": {
+    "available": [],
+    "missing": [
+      "Run /quick-inventory to generate inventory data"
+    ]
+  },
+  "coding_standards": {
+    "available": [
+      "BEHAVIOR-STANDARDS.md",
+      "UI-STANDARDS.md",
+      "UX-PATTERNS.md",
+      "COMPONENT-INDEX.md"
+    ],
+    "missing": [
+      "COMPONENT-PATTERN.md"
+    ]
+  },
+  "reference_components": {
+    "primary": null,
+    "secondary": [],
+    "total_found": 0,
+    "note": "Using fallback - coderef tools unavailable"
+  },
+  "key_patterns_identified": [
+    "Error handling: try-catch blocks found in 9 files",
+    "File organization: barrel exports (export from) found in 11 files",
+    "Naming: camelCase for functions (102/126 functions)"
+  ],
+  "technology_stack": {
+    "language": "JavaScript/TypeScript",
+    "framework": "unknown",
+    "database": "unknown",
+    "testing": "unknown",
+    "build": "Vite"
+  },
+  "project_structure": {
+    "main_directories": [
+      ".turbo\\cache",
+      "packages\\ui\\src\\components"
+    ],
+    "file_counts": {
+      ".turbo\\cache": 146,
+      "packages\\ui\\src\\components": 20,
+      "packages\\sdk\\src": 8,
+      "packages\\core\\src\\store": 6,
+      ".coderef": 5,
+      "apps\\web": 5,
+      "packages\\sdk\\src\\data": 5,
+      "packages\\core\\src\\__tests__": 5,
+      "apps\\web\\public": 5,
+      ".coderef\\diagrams": 4
+    },
+    "organization_pattern": "unknown"
+  },
+  "gaps_and_risks": [
+    "Low test coverage: 0% (target: \u226580%)",
+    "Missing foundation docs: USER-GUIDE.md",
+    "Missing coding standards: COMPONENT-PATTERN.md",
+    "No test directory found (tests/, test/, or __tests__/)",
+    "No CI configuration found (.github/workflows/, .gitlab-ci.yml, etc.)"
+  ],
+  "dependency_analysis": null,
+  "impact_analysis": null,
+  "complexity_analysis": null,
+  "architecture_diagram": null,
+  "telemetry_summary": {
+    "total_sources_used": 1,
+    "coderef_file_reads": {
+      "count": 1,
+      "percentage": 100.0,
+      "files": [
+        ".coderef/index.json"
+      ]
+    },
+    "mcp_tool_calls": {
+      "count": 0,
+      "success_count": 0,
+      "percentage": 0.0,
+      "tools": []
+    },
+    "foundation_doc_reads": {
+      "count": 0,
+      "percentage": 0.0,
+      "docs": []
+    }
+  },
+  "_uds": {
+    "generated_by": "coderef-workflow v2.0.0",
+    "document_type": "Project Analysis",
+    "workorder_id": "WO-STORYBOOK-SETUP-001",
+    "feature_id": "storybook-setup",
+    "last_updated": "2026-01-10",
+    "ai_assistance": true,
+    "status": "DRAFT",
+    "next_review": "2026-02-09"
+  }
+}
