@@ -13,6 +13,14 @@ export {
   validateTenant,
 } from "./schema";
 
+// AJV-based validation (recommended)
+export {
+  validateTenantWithAjv,
+  validateTenantWithErrors,
+  formatValidationErrors,
+  assertValidTenant,
+} from "./validate";
+
 // Default configurations
 import dashboardLayout from "./layouts/dashboard.json";
 import defaultTenant from "./tenants/default.json";
@@ -28,21 +36,16 @@ export const tenants = {
 /**
  * Get a layout by ID
  */
-export function getLayout(id: string): typeof dashboardLayout | undefined {
-  const layoutMap: Record<string, typeof dashboardLayout> = {
-    "main-dashboard": dashboardLayout,
-  };
-  return layoutMap[id];
+export function getLayout(id: string): LayoutConfig | undefined {
+  return (layouts as Record<string, LayoutConfig>)[id] || 
+         Object.values(layouts).find(l => l.id === id);
 }
 
 /**
  * Get a tenant by ID
  */
-export function getTenant(id: string): typeof defaultTenant | undefined {
-  const tenantMap: Record<string, typeof defaultTenant> = {
-    default: defaultTenant,
-  };
-  return tenantMap[id];
+export function getTenant(id: string): TenantConfig | undefined {
+  return (tenants as Record<string, TenantConfig>)[id];
 }
 
 /**

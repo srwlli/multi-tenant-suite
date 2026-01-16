@@ -1,7 +1,7 @@
 "use client";
 
-import { Dashboard, usePlatform } from "@platform/core";
-import { layouts, tenants } from "@platform/config";
+import { Dashboard, DashboardSkeleton, usePlatform } from "@platform/core";
+import { tenants, getLayout } from "@platform/config";
 import { WidgetProvider } from "@platform/sdk";
 import { ThemeToggle, themeToggleManifest } from "@platform/widgets";
 import { TenantSwitcher, type TenantInfo } from "@platform/ui";
@@ -46,13 +46,37 @@ function DashboardActions() {
 }
 
 export default function HomePage() {
+  const { tenantId, loading } = usePlatform();
+
+  // Resolve tenant and layout
+  const tenant = tenants[tenantId as keyof typeof tenants] || tenants.default;
+  const layoutId = tenant.defaultLayout;
+  const layout = getLayout(layoutId);
+
+  if (loading) {
+    return (
+      <div className="container mx-auto px-4 py-8">
+        <DashboardSkeleton />
+      </div>
+    );
+  }
+
   return (
     <div className="container mx-auto px-4 py-8">
-      <Dashboard
-        layout={layouts.dashboard}
-        title="Business Dashboard"
-        actions={<DashboardActions />}
-      />
+      {layout ? (
+        <Dashboard
+          layout={layout as any}
+          title={tenant.name || "Business Dashboard"}
+          actions={<DashboardActions />}
+        />
+      ) : (
+        <div className="p-8 text-center border-2 border-dashed rounded-lg">
+          <h2 className="text-xl font-semibold text-destructive">Layout Not Found</h2>
+          <p className="mt-2 text-muted-foreground">
+            The layout "{layoutId}" could not be resolved. Please check your tenant configuration.
+          </p>
+        </div>
+      )}
     </div>
   );
 }

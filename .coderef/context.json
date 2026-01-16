@@ -1,0 +1,64 @@
+{
+  "version": "2.0.0",
+  "generatedAt": "2026-01-10T11:16:53.763Z",
+  "projectPath": "C:\\Users\\willh\\Desktop\\latest-app",
+  "statistics": {
+    "totalElements": 2034,
+    "totalFiles": 88,
+    "elementsByType": {
+      "function": 97,
+      "method": 1627,
+      "component": 144,
+      "constant": 88,
+      "class": 57,
+      "hook": 21
+    },
+    "filesByExtension": {
+      ".ts": 185,
+      ".tsx": 148,
+      ".js": 1701
+    }
+  },
+  "topFiles": [
+    {
+      "file": "C:/Users/willh/Desktop/latest-app/apps/web/out/_next/static/chunks/framework-4961ef0597843876.js",
+      "elementCount": 480
+    },
+    {
+      "file": "C:/Users/willh/Desktop/latest-app/apps/web/out/_next/static/chunks/87c73c54-24122e7b92478d00.js",
+      "elementCount": 470
+    },
+    {
+      "file": "C:/Users/willh/Desktop/latest-app/apps/web/out/_next/static/chunks/305-35ddae6ce7983e6b.js",
+      "elementCount": 155
+    },
+    {
+      "file": "C:/Users/willh/Desktop/latest-app/apps/web/out/_next/static/chunks/main-fceef01983ecac94.js",
+      "elementCount": 120
+    },
+    {
+      "file": "C:/Users/willh/Desktop/latest-app/apps/web/out/_next/static/chunks/626-a3029fc4d30f1f81.js",
+      "elementCount": 94
+    },
+    {
+      "file": "C:/Users/willh/Desktop/latest-app/apps/web/out/workbox-b52a85cb.js",
+      "elementCount": 92
+    },
+    {
+      "file": "C:/Users/willh/Desktop/latest-app/apps/web/public/workbox-b52a85cb.js",
+      "elementCount": 92
+    },
+    {
+      "file": "C:/Users/willh/Desktop/latest-app/apps/web/out/_next/static/chunks/polyfills-42372ed130431b0a.js",
+      "elementCount": 74
+    },
+    {
+      "file": "C:/Users/willh/Desktop/latest-app/apps/web/out/_next/static/chunks/693-0a332791784eb4fb.js",
+      "elementCount": 41
+    },
+    {
+      "file": "C:/Users/willh/Desktop/latest-app/packages/sdk/src/data/useFileSystem.ts",
+      "elementCount": 26
+    }
+  ]
+}

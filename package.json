@@ -9,8 +9,12 @@
   ],
   "scripts": {
     "dev": "turbo dev",
+    "dev:all": "turbo dev --filter=web --filter=desktop",
     "dev:web": "turbo dev --filter=web",
+    "dev:web:clean": "cd apps/web && npm run dev:clean",
     "dev:desktop": "turbo dev --filter=desktop",
+    "cleanup:dev": "node scripts/cleanup-dev.cjs",
+    "cleanup:dev:ports": "node scripts/cleanup-dev.cjs --kill-ports",
     "build": "turbo build",
     "build:web": "turbo build --filter=web",
     "build:desktop": "turbo build --filter=desktop",

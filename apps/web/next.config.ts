@@ -12,13 +12,16 @@ const withPWA = withPWAInit({
   },
 });
 
+const isDev = process.env.NODE_ENV === "development";
+
 const nextConfig: NextConfig = {
-  // Enable static export for Electron production builds
-  output: "export",
+  // Enable static export for Electron production builds (disabled in dev for HMR)
+  output: isDev ? undefined : "export",
 
   // Use relative paths for Electron file:// protocol compatibility
+  // (disabled in dev to prevent breaking HMR WebSockets)
   basePath: "",
-  assetPrefix: "./",
+  assetPrefix: isDev ? "" : "./",
 
   // Generate proper folder structure for file:// navigation
   trailingSlash: true,

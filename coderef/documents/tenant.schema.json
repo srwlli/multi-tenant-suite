@@ -1,0 +1,122 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://business-dashboard.com/schemas/tenant.json",
+  "title": "Tenant Configuration Schema",
+  "description": "Schema for validating tenant configuration files in the Business Dashboard application",
+  "type": "object",
+  "required": ["id", "name", "defaultLayout"],
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Unique tenant identifier (lowercase, URL-safe, no spaces)",
+      "pattern": "^[a-z0-9-]+$",
+      "minLength": 1,
+      "maxLength": 50,
+      "examples": ["acme-corp", "company-xyz", "enterprise-client"]
+    },
+    "name": {
+      "type": "string",
+      "description": "Display name for the tenant",
+      "minLength": 1,
+      "maxLength": 100,
+      "examples": ["ACME Corporation", "Company XYZ", "Enterprise Client Inc."]
+    },
+    "logo": {
+      "type": "string",
+      "description": "URL or path to tenant logo image",
+      "format": "uri",
+      "examples": ["/logos/acme-corp.svg", "https://example.com/logo.png"]
+    },
+    "defaultLayout": {
+      "type": "string",
+      "description": "ID of the default layout to use for this tenant",
+      "minLength": 1,
+      "examples": ["main-dashboard", "enterprise-dashboard"]
+    },
+    "layouts": {
+      "type": "array",
+      "description": "Array of available layout IDs for this tenant",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
+      "minItems": 0,
+      "uniqueItems": true,
+      "examples": [
+        ["main-dashboard"],
+        ["main-dashboard", "analytics-dashboard", "reports-dashboard"]
+      ]
+    },
+    "features": {
+      "type": "object",
+      "description": "Feature flags for tenant-specific functionality",
+      "properties": {
+        "customizeDashboard": {
+          "type": "boolean",
+          "description": "Allow users to customize their dashboard",
+          "default": false
+        },
+        "marketplace": {
+          "type": "boolean",
+          "description": "Show widget marketplace to users",
+          "default": false
+        },
+        "darkMode": {
+          "type": "boolean",
+          "description": "Enable dark mode support",
+          "default": true
+        }
+      },
+      "additionalProperties": false
+    },
+    "theme": {
+      "type": "object",
+      "description": "Theme customization overrides for tenant branding",
+      "properties": {
+        "primaryColor": {
+          "type": "string",
+          "description": "Primary brand color (CSS color value: hex, rgb, hsl, etc.)",
+          "pattern": "^(#[0-9A-Fa-f]{3,6}|rgb\\([^)]+\\)|rgba\\([^)]+\\)|hsl\\([^)]+\\)|hsla\\([^)]+\\)|[a-z]+)$",
+          "examples": ["#0066cc", "rgb(0, 102, 204)", "hsl(210, 100%, 40%)", "blue"]
+        },
+        "accentColor": {
+          "type": "string",
+          "description": "Accent color for highlights and interactive elements (CSS color value)",
+          "pattern": "^(#[0-9A-Fa-f]{3,6}|rgb\\([^)]+\\)|rgba\\([^)]+\\)|hsl\\([^)]+\\)|hsla\\([^)]+\\)|[a-z]+)$",
+          "examples": ["#00cc66", "rgb(0, 204, 102)", "hsl(150, 100%, 40%)", "green"]
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false,
+  "examples": [
+    {
+      "id": "acme-corp",
+      "name": "ACME Corporation",
+      "defaultLayout": "main-dashboard",
+      "layouts": ["main-dashboard"],
+      "features": {
+        "customizeDashboard": false,
+        "marketplace": false,
+        "darkMode": true
+      }
+    },
+    {
+      "id": "enterprise-client",
+      "name": "Enterprise Client Inc.",
+      "logo": "/logos/enterprise-client.svg",
+      "defaultLayout": "enterprise-dashboard",
+      "layouts": ["enterprise-dashboard", "analytics-dashboard", "reports-dashboard"],
+      "features": {
+        "customizeDashboard": true,
+        "marketplace": true,
+        "darkMode": true
+      },
+      "theme": {
+        "primaryColor": "#1a1a1a",
+        "accentColor": "#00d4ff"
+      }
+    }
+  ]
+}

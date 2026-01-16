@@ -1,0 +1,18 @@
+{
+  "version": "2.0.0",
+  "generatedAt": "2026-01-10T11:16:53.906Z",
+  "projectPath": "C:\\Users\\willh\\Desktop\\latest-app",
+  "hasPreviousScan": true,
+  "summary": {
+    "totalElements": 2034,
+    "addedElements": 0,
+    "removedElements": 0,
+    "modifiedElements": 0,
+    "unchangedElements": 2034
+  },
+  "changes": {
+    "added": [],
+    "removed": [],
+    "modified": []
+  }
+}

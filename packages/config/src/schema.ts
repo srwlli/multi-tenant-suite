@@ -125,7 +125,8 @@ export function validateLayout(layout: unknown): layout is LayoutConfig {
 }
 
 /**
- * Validate a tenant configuration
+ * Validate a tenant configuration (basic validation)
+ * @deprecated Use validateTenantWithAjv from ./validate for full JSON Schema validation
  */
 export function validateTenant(tenant: unknown): tenant is TenantConfig {
   if (!tenant || typeof tenant !== "object") return false;
