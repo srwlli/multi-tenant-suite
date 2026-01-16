@@ -11,6 +11,9 @@
     },
     "./globals.css": "./src/styles/globals.css"
   },
+  "sideEffects": [
+    "**/*.css"
+  ],
   "files": [
     "dist",
     "src"
