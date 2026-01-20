@@ -1,0 +1,56 @@
+{
+    "id": "tier2-pro",
+    "name": "Business Pro",
+    "description": "Core operations for team management and business unit coordination.",
+    "columns": 12,
+    "gap": 16,
+    "widgets": [
+        {
+            "widgetId": "business-unit-overview",
+            "instanceId": "bu-1",
+            "column": 1,
+            "colSpan": 4,
+            "config": {
+                "showKpis": true,
+                "showBudget": true
+            }
+        },
+        {
+            "widgetId": "team-directory-pro",
+            "instanceId": "team-1",
+            "column": 5,
+            "colSpan": 8,
+            "config": {
+                "showRoles": true,
+                "showAvailability": true
+            }
+        },
+        {
+            "widgetId": "internal-escalation-pro",
+            "instanceId": "esc-1",
+            "column": 1,
+            "colSpan": 6,
+            "config": {
+                "showOnCall": true
+            }
+        },
+        {
+            "widgetId": "location-manager-card",
+            "instanceId": "loc-mgr-1",
+            "column": 7,
+            "colSpan": 6,
+            "config": {
+                "showCapacity": true
+            }
+        },
+        {
+            "widgetId": "brand-assets-pro",
+            "instanceId": "brand-1",
+            "column": 1,
+            "colSpan": 12,
+            "config": {
+                "showTemplates": true
+            }
+        }
+    ]
+}

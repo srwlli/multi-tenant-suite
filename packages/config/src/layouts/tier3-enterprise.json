@@ -1,0 +1,58 @@
+{
+    "id": "tier3-enterprise",
+    "name": "Enterprise Suite",
+    "description": "Comprehensive governance, HR compliance, and strategic oversight dashboard.",
+    "columns": 12,
+    "gap": 16,
+    "widgets": [
+        {
+            "widgetId": "hr-compliance-suite",
+            "instanceId": "hr-1",
+            "column": 1,
+            "colSpan": 8,
+            "config": {
+                "trackCertifications": true,
+                "trackSafety": true
+            }
+        },
+        {
+            "widgetId": "staff-skills-matrix",
+            "instanceId": "skills-1",
+            "column": 9,
+            "colSpan": 4,
+            "config": {
+                "showGaps": true
+            }
+        },
+        {
+            "widgetId": "governance-cockpit",
+            "instanceId": "gov-1",
+            "column": 1,
+            "colSpan": 12,
+            "config": {
+                "showSla": true,
+                "showTaxRegistration": true,
+                "showRetentionPolicy": true
+            }
+        },
+        {
+            "widgetId": "strategic-analytics",
+            "instanceId": "strat-1",
+            "column": 1,
+            "colSpan": 6,
+            "config": {
+                "predictionModel": "linear",
+                "showIndustryBenchmarks": true
+            }
+        },
+        {
+            "widgetId": "entitlement-manager",
+            "instanceId": "ent-1",
+            "column": 7,
+            "colSpan": 6,
+            "config": {
+                "showFeatureFlags": true
+            }
+        }
+    ]
+}

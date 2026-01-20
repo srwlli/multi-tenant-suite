@@ -1,0 +1,95 @@
+{
+    "id": "tier1-basic",
+    "name": "Basic Presence",
+    "description": "Smart landing page with actionable business info and lead generation.",
+    "columns": 12,
+    "gap": 16,
+    "widgets": [
+        {
+            "widgetId": "brand-hero",
+            "instanceId": "hero-1",
+            "column": 1,
+            "colSpan": 12,
+            "config": {
+                "showLogo": true,
+                "showMission": true
+            }
+        },
+        {
+            "widgetId": "services-grid",
+            "instanceId": "services-1",
+            "column": 1,
+            "colSpan": 8,
+            "config": {
+                "maxItems": 4
+            }
+        },
+        {
+            "widgetId": "owner-bio",
+            "instanceId": "bio-1",
+            "column": 9,
+            "colSpan": 4,
+            "config": {
+                "showPhoto": true
+            }
+        },
+        {
+            "widgetId": "map-directions",
+            "instanceId": "map-1",
+            "column": 1,
+            "colSpan": 8,
+            "config": {
+                "zoom": 15,
+                "showDirections": true
+            }
+        },
+        {
+            "widgetId": "hours-status",
+            "instanceId": "hours-1",
+            "column": 9,
+            "colSpan": 4,
+            "config": {
+                "dynamicStatus": true
+            }
+        },
+        {
+            "widgetId": "quick-contact",
+            "instanceId": "contact-1",
+            "column": 1,
+            "colSpan": 12,
+            "config": {
+                "fields": [
+                    "name",
+                    "phone"
+                ],
+                "buttonText": "Request Callback"
+            }
+        },
+        {
+            "widgetId": "social-links",
+            "instanceId": "social-1",
+            "column": 1,
+            "colSpan": 12,
+            "config": {
+                "platforms": [
+                    "instagram",
+                    "yelp",
+                    "facebook"
+                ]
+            }
+        },
+        {
+            "widgetId": "accessibility-bar",
+            "instanceId": "access-1",
+            "column": 1,
+            "colSpan": 12,
+            "config": {
+                "toggles": [
+                    "dark-mode",
+                    "high-contrast",
+                    "language"
+                ]
+            }
+        }
+    ]
+}

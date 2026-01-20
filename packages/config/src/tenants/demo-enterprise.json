@@ -1,0 +1,20 @@
+{
+    "id": "demo-enterprise",
+    "name": "Global Solutions Corp",
+    "logo": "/logos/demo-corp.svg",
+    "defaultLayout": "tier3-enterprise",
+    "layouts": [
+        "tier1-basic",
+        "tier2-pro",
+        "tier3-enterprise"
+    ],
+    "features": {
+        "customizeDashboard": true,
+        "marketplace": true,
+        "darkMode": true
+    },
+    "theme": {
+        "primaryColor": "#0f172a",
+        "accentColor": "#3b82f6"
+    }
+}
