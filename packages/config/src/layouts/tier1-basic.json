@@ -1,95 +1,47 @@
 {
     "id": "tier1-basic",
-    "name": "Basic Presence",
-    "description": "Smart landing page with actionable business info and lead generation.",
+    "name": "Basic Presence (v2)",
+    "description": "High-end landing page with Header Integrated Actions.",
     "columns": 12,
     "gap": 16,
     "widgets": [
         {
-            "widgetId": "brand-hero",
-            "instanceId": "hero-1",
+            "widgetId": "hero-section",
             "column": 1,
             "colSpan": 12,
             "config": {
-                "showLogo": true,
-                "showMission": true
+                "headline": "Business Name",
+                "subheadline": "Professional Service Description"
             }
         },
         {
-            "widgetId": "services-grid",
-            "instanceId": "services-1",
-            "column": 1,
-            "colSpan": 8,
-            "config": {
-                "maxItems": 4
-            }
-        },
-        {
-            "widgetId": "owner-bio",
-            "instanceId": "bio-1",
-            "column": 9,
-            "colSpan": 4,
-            "config": {
-                "showPhoto": true
-            }
-        },
-        {
-            "widgetId": "map-directions",
-            "instanceId": "map-1",
-            "column": 1,
-            "colSpan": 8,
-            "config": {
-                "zoom": 15,
-                "showDirections": true
-            }
-        },
-        {
-            "widgetId": "hours-status",
-            "instanceId": "hours-1",
-            "column": 9,
-            "colSpan": 4,
-            "config": {
-                "dynamicStatus": true
-            }
-        },
-        {
-            "widgetId": "quick-contact",
-            "instanceId": "contact-1",
+            "widgetId": "service-grid",
             "column": 1,
             "colSpan": 12,
             "config": {
-                "fields": [
-                    "name",
-                    "phone"
-                ],
-                "buttonText": "Request Callback"
+                "showPrices": false
             }
         },
         {
-            "widgetId": "social-links",
-            "instanceId": "social-1",
+            "widgetId": "location-map",
             "column": 1,
-            "colSpan": 12,
-            "config": {
-                "platforms": [
-                    "instagram",
-                    "yelp",
-                    "facebook"
-                ]
-            }
-        },
-        {
-            "widgetId": "accessibility-bar",
-            "instanceId": "access-1",
-            "column": 1,
-            "colSpan": 12,
-            "config": {
-                "toggles": [
-                    "dark-mode",
-                    "high-contrast",
-                    "language"
-                ]
-            }
+            "colSpan": 12
         }
-    ]
+    ],
+    "actions": {
+        "mode": "header",
+        "items": [
+            {
+                "label": "Call Now",
+                "type": "call",
+                "value": "+12165550123",
+                "primary": true
+            },
+            {
+                "label": "Inquiry",
+                "type": "inquiry",
+                "value": "lead-form-1"
+            }
+        ]
+    }
 }

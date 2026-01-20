@@ -1,0 +1,121 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "https://business-dashboard.com/schemas/landing-page.json",
+    "title": "Landing Page Layout Schema (v2)",
+    "description": "Schema for high-end, header-integrated industry landing pages (e.g. Euphoric Salon)",
+    "type": "object",
+    "required": [
+        "id",
+        "name",
+        "hero",
+        "sections",
+        "actions"
+    ],
+    "properties": {
+        "id": {
+            "type": "string",
+            "pattern": "^[a-z0-9-]+$"
+        },
+        "name": {
+            "type": "string"
+        },
+        "hero": {
+            "type": "object",
+            "required": [
+                "headline",
+                "subheadline"
+            ],
+            "properties": {
+                "headline": {
+                    "type": "string"
+                },
+                "subheadline": {
+                    "type": "string"
+                },
+                "tagline": {
+                    "type": "string"
+                }
+            }
+        },
+        "sections": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "required": [
+                    "id",
+                    "type",
+                    "title"
+                ],
+                "properties": {
+                    "id": {
+                        "type": "string"
+                    },
+                    "type": {
+                        "type": "string",
+                        "enum": [
+                            "services",
+                            "about",
+                            "booking",
+                            "location",
+                            "grid"
+                        ]
+                    },
+                    "title": {
+                        "type": "string"
+                    },
+                    "content": {
+                        "type": "object"
+                    }
+                }
+            }
+        },
+        "actions": {
+            "type": "object",
+            "required": [
+                "mode",
+                "items"
+            ],
+            "properties": {
+                "mode": {
+                    "type": "string",
+                    "enum": [
+                        "header",
+                        "floating"
+                    ]
+                },
+                "items": {
+                    "type": "array",
+                    "items": {
+                        "type": "object",
+                        "required": [
+                            "label",
+                            "type",
+                            "value"
+                        ],
+                        "properties": {
+                            "label": {
+                                "type": "string"
+                            },
+                            "type": {
+                                "type": "string",
+                                "enum": [
+                                    "call",
+                                    "text",
+                                    "book",
+                                    "inquiry",
+                                    "link"
+                                ]
+                            },
+                            "value": {
+                                "type": "string"
+                            },
+                            "primary": {
+                                "type": "boolean"
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

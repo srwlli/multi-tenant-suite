@@ -1,0 +1,699 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CLE Precision Auto Spa | Cleveland's Premium Detailing</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;600;700;800;900&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --primary: #020617;
+            --secondary: #0f172a;
+            --accent: #38bdf8;
+            --accent-soft: #0ea5e9;
+            --accent-glow: rgba(56, 189, 248, 0.4);
+            --text-primary: #f8fafc;
+            --text-secondary: #94a3b8;
+            --surface: rgba(15, 23, 42, 0.6);
+            --border: rgba(255, 255, 255, 0.08);
+            --radius-xl: 32px;
+            --radius-lg: 20px;
+            --transition: cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        [data-theme="light"] {
+            --primary: #f8fafc;
+            --secondary: #f1f5f9;
+            --accent: #0ea5e9;
+            --accent-soft: #0284c7;
+            --accent-glow: rgba(14, 165, 233, 0.2);
+            --text-primary: #0f172a;
+            --text-secondary: #475569;
+            --surface: rgba(255, 255, 255, 0.8);
+            --border: rgba(0, 0, 0, 0.05);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            outline: none;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--primary);
+            color: var(--text-primary);
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        h1,
+        h2,
+        h3,
+        h4,
+        .outfit {
+            font-family: 'Outfit', sans-serif;
+        }
+
+        /* --- Background Animation --- */
+        .bg-glow {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: linear-gradient(125deg, var(--primary) 0%, #0c4a6e 100%);
+            z-index: -1;
+        }
+
+        .bg-glow::after {
+            content: '';
+            position: absolute;
+            top: -10%;
+            right: -10%;
+            width: 60%;
+            height: 60%;
+            background: radial-gradient(circle, var(--accent-glow) 0%, transparent 70%);
+            filter: blur(80px);
+            z-index: -1;
+            animation: float 20s infinite alternate linear;
+        }
+
+        @keyframes float {
+            from {
+                transform: translate(0, 0);
+            }
+
+            to {
+                transform: translate(-10%, 10%);
+            }
+        }
+
+        /* --- Custom Scrollbar --- */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--primary);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--secondary);
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--accent);
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 40px;
+        }
+
+        /* --- Sticky Nav (Utility Bar) --- */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            padding: 20px 0;
+            transition: all 0.3s;
+        }
+
+        nav.scrolled {
+            background: rgba(2, 6, 23, 0.8);
+            backdrop-filter: blur(20px);
+            padding: 12px 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .nav-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-weight: 900;
+            font-size: 1.5rem;
+            letter-spacing: -1px;
+            color: var(--accent);
+            text-transform: uppercase;
+        }
+
+        .nav-actions {
+            display: flex;
+            gap: 12px;
+        }
+
+        .btn-ui {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            color: var(--text-primary);
+            padding: 10px 16px;
+            border-radius: 12px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.85rem;
+            backdrop-filter: blur(10px);
+            transition: all 0.2s var(--transition);
+        }
+
+        .btn-ui:hover {
+            border-color: var(--accent);
+            transform: translateY(-2px);
+        }
+
+        /* --- Hero Section --- */
+        .hero {
+            padding-top: 180px;
+            padding-bottom: 100px;
+            position: relative;
+            text-align: left;
+        }
+
+        .hero-badge {
+            display: inline-block;
+            background: rgba(56, 189, 248, 0.1);
+            color: var(--accent);
+            padding: 8px 16px;
+            border-radius: 100px;
+            font-size: 0.75rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border: 1px solid rgba(56, 189, 248, 0.2);
+            margin-bottom: 24px;
+        }
+
+        .hero h1 {
+            font-size: 5rem;
+            font-weight: 900;
+            line-height: 1;
+            letter-spacing: -3px;
+            margin-bottom: 24px;
+            background: linear-gradient(to bottom right, #fff 40%, rgba(255, 255, 255, 0.4));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero p {
+            font-size: 1.4rem;
+            color: var(--text-secondary);
+            max-width: 700px;
+            line-height: 1.5;
+            margin-bottom: 40px;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 20px;
+        }
+
+        .btn-primary {
+            background: var(--accent);
+            color: #000;
+            padding: 18px 36px;
+            border-radius: 16px;
+            font-weight: 750;
+            text-decoration: none;
+            font-size: 1.1rem;
+            transition: all 0.3s var(--transition);
+            box-shadow: 0 10px 40px -10px var(--accent-glow);
+        }
+
+        .btn-primary:hover {
+            transform: scale(1.05);
+            background: white;
+            box-shadow: 0 20px 60px -15px var(--accent-glow);
+        }
+
+        /* --- Dashboard Grid --- */
+        .dash-grid {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: 24px;
+            margin-bottom: 100px;
+        }
+
+        .widget {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-xl);
+            padding: 40px;
+            backdrop-filter: blur(24px);
+            transition: transform 0.4s var(--transition), border-color 0.4s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .widget:hover {
+            transform: translateY(-8px);
+            border-color: rgba(56, 189, 248, 0.3);
+        }
+
+        .widget::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, transparent 0%, rgba(56, 189, 248, 0.05) 100%);
+            opacity: 0;
+            transition: opacity 0.4s;
+        }
+
+        .widget:hover::before {
+            opacity: 1;
+        }
+
+        /* --- Specific Widgets --- */
+        .services {
+            grid-column: span 8;
+        }
+
+        .bio {
+            grid-column: span 4;
+        }
+
+        .location {
+            grid-column: span 7;
+        }
+
+        .hours {
+            grid-column: span 5;
+        }
+
+        .quote {
+            grid-column: span 12;
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            margin-bottom: 32px;
+        }
+
+        .section-title {
+            font-size: 2rem;
+            font-weight: 800;
+        }
+
+        .section-subtitle {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            margin-top: 4px;
+        }
+
+        /* Service Cards */
+        .services-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .service-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--border);
+            padding: 30px;
+            border-radius: var(--radius-lg);
+            transition: all 0.3s;
+        }
+
+        .service-card:hover {
+            background: rgba(255, 255, 255, 0.06);
+            border-color: rgba(56, 189, 248, 0.2);
+        }
+
+        .service-card h4 {
+            font-size: 1.25rem;
+            color: var(--accent);
+            margin-bottom: 12px;
+        }
+
+        .service-card p {
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+        }
+
+        /* Bio Widget */
+        .bio-header {
+            text-align: center;
+            margin-bottom: 24px;
+        }
+
+        .avatar-container {
+            width: 120px;
+            height: 120px;
+            margin: 0 auto 20px;
+            border-radius: 40px;
+            background: linear-gradient(135deg, var(--accent) 0%, #0c4a6e 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            font-weight: 900;
+            color: #000;
+            box-shadow: 0 10px 30px -10px var(--accent-glow);
+        }
+
+        .bio p {
+            font-size: 1rem;
+            color: var(--text-secondary);
+            line-height: 1.6;
+            text-align: center;
+        }
+
+        /* Map Widget Mock */
+        .map-canvas {
+            width: 100%;
+            height: 320px;
+            background: #0f172a;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid var(--border);
+            position: relative;
+        }
+
+        .map-info {
+            position: absolute;
+            bottom: 30px;
+            left: 30px;
+            background: rgba(2, 6, 23, 0.9);
+            padding: 16px 24px;
+            border-radius: 16px;
+            border: 1px solid var(--border);
+            backdrop-filter: blur(10px);
+        }
+
+        /* Hours Widget */
+        .hours-circle {
+            width: 200px;
+            height: 200px;
+            margin: 0 auto 32px;
+            border-radius: 50%;
+            border: 8px solid rgba(255, 255, 255, 0.05);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .hours-circle::after {
+            content: '';
+            position: absolute;
+            inset: -8px;
+            border-radius: 50%;
+            border: 8px solid transparent;
+            border-top-color: #22c55e;
+            animation: spin 3s linear infinite;
+        }
+
+        @keyframes spin {
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        .live-status {
+            font-size: 0.75rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            color: #22c55e;
+            letter-spacing: 2px;
+            margin-bottom: 4px;
+        }
+
+        .time-remaining {
+            font-size: 1.5rem;
+            font-weight: 800;
+        }
+
+        /* Quotation Form */
+        .quote-header {
+            text-align: center;
+            max-width: 600px;
+            margin: 0 auto 40px;
+        }
+
+        .input-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr 200px;
+            gap: 16px;
+        }
+
+        .input-field {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border);
+            padding: 20px 24px;
+            border-radius: 16px;
+            color: #fff;
+            font-size: 1rem;
+            transition: all 0.2s;
+        }
+
+        .input-field:focus {
+            border-color: var(--accent);
+            background: rgba(255, 255, 255, 0.08);
+            box-shadow: 0 0 0 4px rgba(56, 189, 248, 0.1);
+        }
+
+        .btn-send {
+            background: var(--accent);
+            color: #000;
+            border: none;
+            border-radius: 16px;
+            font-weight: 800;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn-send:hover {
+            transform: scale(1.02);
+            background: #fff;
+        }
+
+        /* Mobile Adjustments */
+        @media (max-width: 1024px) {
+            .dash-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .services,
+            .bio,
+            .location,
+            .hours,
+            .quote {
+                grid-column: span 1;
+            }
+
+            .hero h1 {
+                font-size: 3.5rem;
+            }
+
+            .input-row {
+                grid-template-columns: 1fr;
+            }
+
+            .container {
+                padding: 0 24px;
+            }
+        }
+
+        /* --- Floating Contact Bar --- */
+        .contact-cta {
+            position: fixed;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 12px;
+            z-index: 2000;
+        }
+
+        .cta-pill {
+            background: #fff;
+            color: #000;
+            padding: 16px 28px;
+            border-radius: 100px;
+            font-weight: 800;
+            font-size: 0.95rem;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.4);
+            transition: all 0.3s;
+        }
+
+        .cta-pill:hover {
+            transform: translateY(-4px) scale(1.05);
+        }
+
+        .cta-pill.dark {
+            background: var(--secondary);
+            color: #fff;
+            border: 1px solid var(--border);
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="bg-glow"></div>
+
+    <nav id="navbar">
+        <div class="container nav-content">
+            <div class="logo">Precision SPA</div>
+            <div class="nav-actions">
+                <button class="btn-ui" onclick="toggleTheme()">DARK / LIGHT</button>
+                <button class="btn-ui">OHIO CITY • CLEVELAND</button>
+            </div>
+        </div>
+    </nav>
+
+    <header class="hero">
+        <div class="container">
+            <span class="hero-badge">Est. 2014 • Master Certified Detailers</span>
+            <h1>CLE PRECISION <br>AUTO SPA</h1>
+            <p>The ultimate automotive rejuvenation studio. We specialize in archival-grade detailing and ceramic
+                protection for those who demand the best.</p>
+            <div class="hero-buttons">
+                <a href="#quote" class="btn-primary">START YOUR TRANSFORMATION</a>
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="dash-grid">
+
+            <!-- Tier 1: Service Menu Widget -->
+            <section class="widget services">
+                <div class="section-header">
+                    <div>
+                        <h2 class="section-title">Studio Menu</h2>
+                        <p class="section-subtitle">Excellence in every square millimeter.</p>
+                    </div>
+                </div>
+                <div class="services-container">
+                    <div class="service-card">
+                        <h4>Archive Reset</h4>
+                        <p>Complete interior extraction, steam sterilization, and leather feed.</p>
+                    </div>
+                    <div class="service-card">
+                        <h4>Gloss Authority</h4>
+                        <p>Stage-2 paint correction removing 95% of imperfections.</p>
+                    </div>
+                    <div class="service-card">
+                        <h4>Infinite Shield</h4>
+                        <p>9H Nanotechnology ceramic coating with self-healing properties.</p>
+                    </div>
+                    <div class="service-card">
+                        <h4>Concierge Care</h4>
+                        <p>Monthly maintenance plans at your residence or our studio.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Tier 1: Owner Profile Widget -->
+            <aside class="widget bio">
+                <div class="bio-header">
+                    <div class="avatar-container">MP</div>
+                    <h3>Marcus Pierce</h3>
+                    <p style="color: var(--accent); font-weight: 700;">PROPRIETOR & LEAD ARTISAN</p>
+                </div>
+                <p>"Detailing is the bridge between engineering and art. My mission is to ensure every vehicle leaves
+                    CLE Precision in better-than-factory condition."</p>
+            </aside>
+
+            <!-- Tier 1: Smart Map Widget -->
+            <section class="widget location">
+                <div class="section-header">
+                    <h2 class="section-title">The Studio</h2>
+                </div>
+                <div class="map-canvas">
+                    <p style="opacity: 0.3; letter-spacing: 2px;">MAP RELAY: OHIO CITY DISTRICT</p>
+                    <div class="map-info">
+                        <strong>2819 Lorain Ave</strong><br>
+                        <span style="font-size: 0.8rem; opacity: 0.7;">Cleveland, OH 44113</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Tier 1: Live Status Widget -->
+            <section class="widget hours">
+                <div class="section-header">
+                    <h2 class="section-title">Availability</h2>
+                </div>
+                <div class="hours-circle">
+                    <div class="live-status">Operational</div>
+                    <div class="time-remaining">02:45:12</div>
+                    <div style="font-size: 0.7rem; opacity: 0.5; margin-top: 8px;">UNTIL EOD CLOSE</div>
+                </div>
+                <div style="text-align: center;">
+                    <p>Open Monday — Saturday</p>
+                    <p style="color: var(--text-secondary); font-size: 0.85rem;">8:00 AM — 6:00 PM</p>
+                </div>
+            </section>
+
+            <!-- Tier 1: Quotation Widget -->
+            <section class="widget quote" id="quote">
+                <div class="quote-header">
+                    <h2 class="section-title">Concierge Inquiry</h2>
+                    <p class="section-subtitle">Tell us about your vehicle, and we will prepare a bespoke detailing
+                        proposal.</p>
+                </div>
+                <form onsubmit="event.preventDefault()" class="input-row">
+                    <input type="text" class="input-field" placeholder="Car Make & Model (e.g. Porsche 911)">
+                    <input type="tel" class="input-field" placeholder="Phone Number">
+                    <button class="btn-send">SEND REQUEST</button>
+                </form>
+            </section>
+
+        </div>
+    </main>
+
+    <div class="contact-cta">
+        <a href="tel:2165550199" class="cta-pill">📞 CALL STUDIO</a>
+        <a href="#" class="cta-pill dark">💬 SMS MARCUS</a>
+    </div>
+
+
+    <script>
+        // Scroll Effect
+        window.addEventListener('scroll', function () {
+            const nav = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                nav.classList.add('scrolled');
+            } else {
+                nav.classList.remove('scrolled');
+            }
+        });
+
+        // Theme Toggle
+        function toggleTheme() {
+            const body = document.body;
+            if (body.getAttribute('data-theme') === 'light') {
+                body.removeAttribute('data-theme');
+            } else {
+                body.setAttribute('data-theme', 'light');
+            }
+        }
+    </script>
+</body>
+
+</html>

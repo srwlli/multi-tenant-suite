@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CLE Taco Truck | Global Flavors in Cleveland</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;600;700;800;900&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --primary: #431407;
+            --secondary: #78350f;
+            --accent: #f59e0b;
+            --accent-soft: #fbbf24;
+            --accent-glow: rgba(245, 158, 11, 0.4);
+            --text-primary: #fff7ed;
+            --text-secondary: #fed7aa;
+            --surface: rgba(67, 20, 7, 0.6);
+            --border: rgba(255, 255, 255, 0.1);
+            --radius-xl: 32px;
+            --radius-lg: 20px;
+            --transition: cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        [data-theme="light"] {
+            --primary: #fff7ed;
+            --secondary: #ffedd5;
+            --accent: #d97706;
+            --accent-soft: #b45309;
+            --accent-glow: rgba(217, 119, 6, 0.2);
+            --text-primary: #431407;
+            --text-secondary: #78350f;
+            --surface: rgba(255, 255, 255, 0.8);
+            --border: rgba(0, 0, 0, 0.05);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            outline: none;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--primary);
+            color: var(--text-primary);
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        h1,
+        h2,
+        h3,
+        h4,
+        .outfit {
+            font-family: 'Outfit', sans-serif;
+        }
+
+        /* --- Background Animation --- */
+        .bg-glow {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: radial-gradient(circle at 0% 0%, var(--secondary) 0%, var(--primary) 70%);
+            z-index: -1;
+        }
+
+        .bg-glow::after {
+            content: '';
+            position: absolute;
+            bottom: -10%;
+            left: -10%;
+            width: 60%;
+            height: 60%;
+            background: radial-gradient(circle, var(--accent-glow) 0%, transparent 70%);
+            filter: blur(80px);
+            z-index: -1;
+            animation: pulse 10s infinite alternate linear;
+        }
+
+        @keyframes pulse {
+            from {
+                transform: scale(1);
+                opacity: 0.5;
+            }
+
+            to {
+                transform: scale(1.2);
+                opacity: 0.8;
+            }
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 40px;
+        }
+
+        /* --- Sticky Nav --- */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            padding: 20px 0;
+            transition: all 0.3s;
+        }
+
+        nav.scrolled {
+            background: rgba(67, 20, 7, 0.8);
+            backdrop-filter: blur(20px);
+            padding: 12px 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .nav-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-weight: 900;
+            font-size: 1.5rem;
+            letter-spacing: -1px;
+            color: var(--accent);
+            text-transform: uppercase;
+        }
+
+        .nav-actions {
+            display: flex;
+            gap: 12px;
+        }
+
+        .btn-ui {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            color: var(--text-primary);
+            padding: 10px 16px;
+            border-radius: 12px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.85rem;
+            backdrop-filter: blur(10px);
+            transition: all 0.2s;
+        }
+
+        /* --- Hero Section --- */
+        .hero {
+            padding-top: 180px;
+            padding-bottom: 80px;
+            position: relative;
+            text-align: left;
+        }
+
+        .hero-badge {
+            display: inline-block;
+            background: rgba(245, 158, 11, 0.1);
+            color: var(--accent);
+            padding: 8px 16px;
+            border-radius: 100px;
+            font-size: 0.75rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border: 1px solid rgba(245, 158, 11, 0.2);
+            margin-bottom: 24px;
+        }
+
+        .hero h1 {
+            font-size: 5rem;
+            font-weight: 900;
+            line-height: 1;
+            letter-spacing: -3px;
+            margin-bottom: 24px;
+            background: linear-gradient(to right, #fff, var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero p {
+            font-size: 1.4rem;
+            color: var(--text-secondary);
+            max-width: 700px;
+            line-height: 1.5;
+            margin-bottom: 40px;
+        }
+
+        .btn-primary {
+            background: var(--accent);
+            color: var(--primary);
+            padding: 18px 36px;
+            border-radius: 16px;
+            font-weight: 800;
+            text-decoration: none;
+            font-size: 1.1rem;
+            transition: all 0.3s;
+            box-shadow: 0 10px 40px -10px var(--accent-glow);
+        }
+
+        /* --- Dashboard Grid --- */
+        .dash-grid {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: 24px;
+            margin-bottom: 100px;
+        }
+
+        .widget {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-xl);
+            padding: 40px;
+            backdrop-filter: blur(24px);
+            transition: transform 0.4s var(--transition);
+        }
+
+        .widget:hover {
+            transform: translateY(-8px);
+        }
+
+        /* Specific Widgets */
+        .menu {
+            grid-column: span 8;
+        }
+
+        .bio {
+            grid-column: span 4;
+        }
+
+        .location {
+            grid-column: span 7;
+        }
+
+        .availability {
+            grid-column: span 5;
+        }
+
+        .catering {
+            grid-column: span 12;
+        }
+
+        .section-title {
+            font-size: 2rem;
+            font-weight: 800;
+            margin-bottom: 24px;
+        }
+
+        /* Menu Grid */
+        .menu-items {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .menu-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--border);
+            padding: 24px;
+            border-radius: var(--radius-lg);
+        }
+
+        .menu-card h4 {
+            font-size: 1.2rem;
+            color: var(--accent);
+            margin-bottom: 8px;
+        }
+
+        .menu-card p {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+
+        /* Bio */
+        .bio-avatar {
+            width: 100px;
+            height: 100px;
+            margin: 0 auto 20px;
+            border-radius: 30px;
+            background: var(--accent);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            font-weight: 900;
+            color: var(--primary);
+        }
+
+        /* Map Mock */
+        .map-box {
+            width: 100%;
+            height: 300px;
+            background: #27272a;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .map-badge {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: var(--accent);
+            color: var(--primary);
+            padding: 8px 16px;
+            border-radius: 99px;
+            font-weight: 800;
+            font-size: 0.8rem;
+        }
+
+        /* Availability */
+        .status-circle {
+            width: 180px;
+            height: 180px;
+            margin: 0 auto 24px;
+            border-radius: 50%;
+            border: 6px solid rgba(255, 255, 255, 0.05);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .status-text {
+            font-size: 0.7rem;
+            font-weight: 900;
+            color: #22c55e;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .countdown {
+            font-size: 1.8rem;
+            font-weight: 900;
+        }
+
+        /* Catering Form */
+        .catering-form {
+            display: grid;
+            grid-template-columns: 1fr 1fr auto;
+            gap: 16px;
+            margin-top: 24px;
+        }
+
+        .input-box {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border);
+            padding: 16px 20px;
+            border-radius: 12px;
+            color: #fff;
+        }
+
+        .btn-send {
+            background: var(--accent);
+            color: var(--primary);
+            border: none;
+            padding: 16px 32px;
+            border-radius: 12px;
+            font-weight: 800;
+            cursor: pointer;
+        }
+
+        /* Floating Contact */
+        .contact-pills {
+            position: fixed;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 12px;
+            z-index: 2000;
+        }
+
+        .pill {
+            background: #fff;
+            color: #000;
+            padding: 14px 24px;
+            border-radius: 100px;
+            font-weight: 800;
+            text-decoration: none;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .pill.dark {
+            background: var(--secondary);
+            color: #fff;
+            border: 1px solid var(--border);
+        }
+
+        @media (max-width: 1024px) {
+            .dash-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .menu,
+            .bio,
+            .location,
+            .availability,
+            .catering {
+                grid-column: span 1;
+            }
+
+            .hero h1 {
+                font-size: 3.5rem;
+            }
+
+            .catering-form {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="bg-glow"></div>
+
+    <nav id="navbar">
+        <div class="container nav-content">
+            <div class="logo">🌮 CLE TACO</div>
+            <div class="nav-actions">
+                <button class="btn-ui" onclick="toggleTheme()">DARK / LIGHT</button>
+                <button class="btn-ui">📍 TRACK TRUCK</button>
+            </div>
+        </div>
+    </nav>
+
+    <header class="hero">
+        <div class="container">
+            <span class="hero-badge">Est. 2020 • Cleveland's Street Icon</span>
+            <h1>CLEVELAND'S <br>TACO REVOLUTION</h1>
+            <p>Moving fast, tasting better. Our award-winning fusion tacos are roaming the 216. Find the fire, wherever
+                we park.</p>
+            <a href="#catering" class="btn-primary">BOOK CATERING</a>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="dash-grid">
+
+            <section class="widget menu">
+                <h2 class="section-title">Fresh Off The Flat-Top</h2>
+                <div class="menu-items">
+                    <div class="menu-card">
+                        <h4>Terminal Tower Taco</h4>
+                        <p>Smoked brisket, chipotle slaw, pickled onions, and CLE gold sauce.</p>
+                    </div>
+                    <div class="menu-card">
+                        <h4>Lake Erie Lobster</h4>
+                        <p>Zesty shrimp fusion with mango salsa and lime crema.</p>
+                    </div>
+                    <div class="menu-card">
+                        <h4>Ohio City Al Pastor</h4>
+                        <p>Traditional marinated pork with charred pineapple and salsa verde.</p>
+                    </div>
+                    <div class="menu-card">
+                        <h4>Veggies of the West Side</h4>
+                        <p>Grilled seasonal roots, black beans, and ghost pepper jack.</p>
+                    </div>
+                </div>
+            </section>
+
+            <aside class="widget bio">
+                <div class="bio-avatar">👨‍🍳</div>
+                <h3 style="text-align: center;">Chef Elena</h3>
+                <p style="text-align: center; color: var(--accent); font-weight: 700;">FLAVOR ARCHITECT</p>
+                <p style="margin-top: 20px; text-align: center;">"Street food is the heartbeat of a city. We bring the
+                    heat to every corner of Cleveland."</p>
+            </aside>
+
+            <section class="widget location">
+                <h2 class="section-title">Current Spot</h2>
+                <div class="map-box">
+                    <span class="map-badge">LIVE LOCATION</span>
+                    <p style="opacity: 0.3; letter-spacing: 2px;">VIBE CHECK: NOBLE BEAST BREWING</p>
+                    <div
+                        style="position: absolute; bottom: 30px; left: 30px; background: rgba(0,0,0,0.8); padding: 16px; border-radius: 12px; border: 1px solid var(--border);">
+                        <strong>Noble Beast Brewing Co.</strong><br>
+                        <span style="font-size: 0.8rem; opacity: 0.7;">1470 Lakeside Ave E, Cleveland</span>
+                    </div>
+                </div>
+            </section>
+
+            <section class="widget availability">
+                <h2 class="section-title">Shift Ending</h2>
+                <div class="status-circle">
+                    <div class="status-text">Cooking Now</div>
+                    <div class="countdown">01:22:45</div>
+                    <div style="font-size: 0.6rem; opacity: 0.5; margin-top: 10px;">UNTIL NEXT LOCATION</div>
+                </div>
+                <div style="text-align: center;">
+                    <p>Next Stop: Edgewater Live</p>
+                    <p style="color: var(--text-secondary); font-size: 0.85rem;">Arrival: 7:30 PM</p>
+                </div>
+            </section>
+
+            <section class="widget catering" id="catering">
+                <h2 class="section-title">Bring the Truck</h2>
+                <p>Weddings, Corporate, or Backyard Bash. We bring the full kitchen to your event.</p>
+                <form onsubmit="event.preventDefault()" class="catering-form">
+                    <input type="text" class="input-box" placeholder="Your Name">
+                    <input type="tel" class="input-box" placeholder="Phone Number">
+                    <button class="btn-send">CHECK AVAILABILITY</button>
+                </form>
+            </section>
+
+        </div>
+    </main>
+
+    <div class="contact-pills">
+        <a href="tel:2165550200" class="pill">📞 CALL TRUCK</a>
+        <a href="#" class="pill dark">📸 INSTAGRAM</a>
+    </div>
+
+    <script>
+        window.addEventListener('scroll', function () {
+            const nav = document.getElementById('navbar');
+            if (window.scrollY > 50) nav.classList.add('scrolled');
+            else nav.classList.remove('scrolled');
+        });
+
+        function toggleTheme() {
+            const body = document.body;
+            if (body.getAttribute('data-theme') === 'light') body.removeAttribute('data-theme');
+            else body.setAttribute('data-theme', 'light');
+        }
+    </script>
+</body>
+
+</html>

@@ -19,21 +19,54 @@ export interface WidgetPosition {
 }
 
 /**
- * Layout configuration schema
+ * Action configuration for conversion CTAs (v1 & v2)
+ */
+export interface ActionItem {
+  /** Display label (e.g. "Call Now") */
+  label: string;
+  /** Action type */
+  type: 'call' | 'text' | 'book' | 'inquiry' | 'link';
+  /** Action value (phone number, link, etc.) */
+  value: string;
+  /** Whether this is a primary (high-contrast) action */
+  primary?: boolean;
+}
+
+/**
+ * Standard Widget-based Layout (V1)
+ * Used for internal operations and utility dashboards.
  */
 export interface LayoutConfig {
-  /** Layout identifier */
   id: string;
-  /** Layout display name */
   name: string;
-  /** Layout description */
   description?: string;
-  /** Grid columns (default: 12) */
   columns?: number;
-  /** Gap between widgets in pixels (default: 16) */
   gap?: number;
-  /** Widgets in this layout */
   widgets: WidgetPosition[];
+}
+
+/**
+ * Premium Landing Page Layout (V2 / Ethereal)
+ * Used for high-end conversion pages (e.g. Euphoric Salon).
+ */
+export interface LandingPageLayoutConfig {
+  id: string;
+  name: string;
+  hero: {
+    headline: string;
+    subheadline: string;
+    tagline?: string;
+  };
+  sections: Array<{
+    id: string;
+    type: 'services' | 'about' | 'booking' | 'location' | 'grid';
+    title: string;
+    content?: Record<string, unknown>;
+  }>;
+  actions: {
+    mode: 'header' | 'floating';
+    items: ActionItem[];
+  };
 }
 
 /**

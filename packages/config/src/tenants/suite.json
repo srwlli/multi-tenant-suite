@@ -1,0 +1,17 @@
+{
+    "id": "antigravity-suite",
+    "name": "Antigravity Multi-Tenant Suite",
+    "defaultLayout": "portal",
+    "layouts": [
+        "portal"
+    ],
+    "features": {
+        "customizeDashboard": false,
+        "marketplace": false,
+        "darkMode": true
+    },
+    "theme": {
+        "primaryColor": "#000000",
+        "accentColor": "#ffffff"
+    }
+}

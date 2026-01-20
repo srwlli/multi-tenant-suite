@@ -21,7 +21,7 @@ This report outlines the strategy for implementing tiered dashboard offerings wi
 - **Holiday/Alert Banner:** Top-bar for temporary announcements (e.g., "Closed for Holiday").
 
 #### 3. Conversion & Action (Lead Gen)
-- **One-Tap Contact Bar:** Mobile-optimized "Call Now", "Email", or "SMS" sticky footer.
+- **Header Integrated Actions:** Primary "Call" or "Inquiry" buttons placed in the top navigation bar for a "Native App" feel.
 - **Simple Inquiry Form:** Low-friction 2-field form for callback requests (`4.1 Directory`).
 - **Social Proof Links:** Branded links to Instagram, Yelp, or Facebook (`5.1 Brands`).
 

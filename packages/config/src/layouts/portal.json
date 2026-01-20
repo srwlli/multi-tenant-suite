@@ -1,0 +1,81 @@
+{
+    "id": "portal",
+    "name": "Suite Portal",
+    "description": "Unified entry point for the Antigravity Multi-Tenant Suite.",
+    "columns": 12,
+    "gap": 24,
+    "widgets": [
+        {
+            "widgetId": "suite-hero",
+            "instanceId": "hero-1",
+            "column": 1,
+            "colSpan": 12,
+            "config": {
+                "headline": "Antigravity Suite",
+                "subheadline": "The Enterprise-Grade Multi-Tenant Ecosystem"
+            }
+        },
+        {
+            "widgetId": "tenant-grid",
+            "instanceId": "grid-1",
+            "column": 1,
+            "colSpan": 12,
+            "config": {
+                "showStatus": true,
+                "tenants": [
+                    {
+                        "id": "detailing",
+                        "name": "Precision Detailing",
+                        "url": "detailing.html",
+                        "category": "Auto"
+                    },
+                    {
+                        "id": "mechanic",
+                        "name": "Elite Mechanic",
+                        "url": "mechanic.html",
+                        "category": "Auto"
+                    },
+                    {
+                        "id": "property",
+                        "name": "CLE Property Pro",
+                        "url": "property.html",
+                        "category": "Real Estate"
+                    },
+                    {
+                        "id": "maintenance",
+                        "name": "Field Ops Maintenance",
+                        "url": "maintenance.html",
+                        "category": "Property"
+                    },
+                    {
+                        "id": "foodtruck",
+                        "name": "CLE Taco Truck",
+                        "url": "foodtruck.html",
+                        "category": "Food"
+                    },
+                    {
+                        "id": "moving",
+                        "name": "Rapid Movers",
+                        "url": "moving.html",
+                        "category": "Logistics"
+                    },
+                    {
+                        "id": "salon",
+                        "name": "Euphoric Salon",
+                        "url": "salon.html",
+                        "category": "Beauty"
+                    }
+                ]
+            }
+        },
+        {
+            "widgetId": "tech-stack-overview",
+            "instanceId": "tech-1",
+            "column": 1,
+            "colSpan": 12,
+            "config": {
+                "showArchitecture": true
+            }
+        }
+    ]
+}
