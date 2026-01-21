@@ -4,7 +4,11 @@
   "title": "Tenant Configuration Schema",
   "description": "Schema for validating tenant configuration files in the Business Dashboard application",
   "type": "object",
-  "required": ["id", "name", "defaultLayout"],
+  "required": [
+    "id",
+    "name",
+    "defaultLayout"
+  ],
   "properties": {
     "id": {
       "type": "string",
@@ -12,26 +16,54 @@
       "pattern": "^[a-z0-9-]+$",
       "minLength": 1,
       "maxLength": 50,
-      "examples": ["acme-corp", "company-xyz", "enterprise-client"]
+      "examples": [
+        "acme-corp",
+        "company-xyz",
+        "enterprise-client"
+      ]
     },
     "name": {
       "type": "string",
       "description": "Display name for the tenant",
       "minLength": 1,
       "maxLength": 100,
-      "examples": ["ACME Corporation", "Company XYZ", "Enterprise Client Inc."]
+      "examples": [
+        "ACME Corporation",
+        "Company XYZ",
+        "Enterprise Client Inc."
+      ]
     },
     "logo": {
       "type": "string",
       "description": "URL or path to tenant logo image",
       "format": "uri",
-      "examples": ["/logos/acme-corp.svg", "https://example.com/logo.png"]
+      "examples": [
+        "/logos/acme-corp.svg",
+        "https://example.com/logo.png"
+      ]
+    },
+    "url": {
+      "type": "string",
+      "description": "Relative path to industry prototype (e.g. ../tier1/v1/detailing.html)",
+      "pattern": "^\\.\\.\\/tier[0-9]\\/v[0-9]\\/.*\\.html$"
+    },
+    "category": {
+      "type": "string",
+      "description": "Industry category for classification",
+      "examples": [
+        "Auto",
+        "Real Estate",
+        "Beauty"
+      ]
     },
     "defaultLayout": {
       "type": "string",
       "description": "ID of the default layout to use for this tenant",
       "minLength": 1,
-      "examples": ["main-dashboard", "enterprise-dashboard"]
+      "examples": [
+        "main-dashboard",
+        "enterprise-dashboard"
+      ]
     },
     "layouts": {
       "type": "array",
@@ -43,8 +75,14 @@
       "minItems": 0,
       "uniqueItems": true,
       "examples": [
-        ["main-dashboard"],
-        ["main-dashboard", "analytics-dashboard", "reports-dashboard"]
+        [
+          "main-dashboard"
+        ],
+        [
+          "main-dashboard",
+          "analytics-dashboard",
+          "reports-dashboard"
+        ]
       ]
     },
     "features": {
@@ -77,13 +115,23 @@
           "type": "string",
           "description": "Primary brand color (CSS color value: hex, rgb, hsl, etc.)",
           "pattern": "^(#[0-9A-Fa-f]{3,6}|rgb\\([^)]+\\)|rgba\\([^)]+\\)|hsl\\([^)]+\\)|hsla\\([^)]+\\)|[a-z]+)$",
-          "examples": ["#0066cc", "rgb(0, 102, 204)", "hsl(210, 100%, 40%)", "blue"]
+          "examples": [
+            "#0066cc",
+            "rgb(0, 102, 204)",
+            "hsl(210, 100%, 40%)",
+            "blue"
+          ]
         },
         "accentColor": {
           "type": "string",
           "description": "Accent color for highlights and interactive elements (CSS color value)",
           "pattern": "^(#[0-9A-Fa-f]{3,6}|rgb\\([^)]+\\)|rgba\\([^)]+\\)|hsl\\([^)]+\\)|hsla\\([^)]+\\)|[a-z]+)$",
-          "examples": ["#00cc66", "rgb(0, 204, 102)", "hsl(150, 100%, 40%)", "green"]
+          "examples": [
+            "#00cc66",
+            "rgb(0, 204, 102)",
+            "hsl(150, 100%, 40%)",
+            "green"
+          ]
         }
       },
       "additionalProperties": false
@@ -95,7 +143,9 @@
       "id": "acme-corp",
       "name": "ACME Corporation",
       "defaultLayout": "main-dashboard",
-      "layouts": ["main-dashboard"],
+      "layouts": [
+        "main-dashboard"
+      ],
       "features": {
         "customizeDashboard": false,
         "marketplace": false,
@@ -107,7 +157,11 @@
       "name": "Enterprise Client Inc.",
       "logo": "/logos/enterprise-client.svg",
       "defaultLayout": "enterprise-dashboard",
-      "layouts": ["enterprise-dashboard", "analytics-dashboard", "reports-dashboard"],
+      "layouts": [
+        "enterprise-dashboard",
+        "analytics-dashboard",
+        "reports-dashboard"
+      ],
       "features": {
         "customizeDashboard": true,
         "marketplace": true,

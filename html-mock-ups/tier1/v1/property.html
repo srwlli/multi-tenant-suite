@@ -135,6 +135,41 @@
             transition: all 0.2s;
         }
 
+        /* --- Version Switcher --- */
+        .version-switcher {
+            display: flex;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 4px;
+            gap: 4px;
+            backdrop-filter: blur(10px);
+        }
+
+        .version-switcher a,
+        .version-switcher span {
+            padding: 6px 12px;
+            border-radius: 8px;
+            font-size: 0.75rem;
+            font-weight: 750;
+            text-decoration: none;
+            transition: all 0.2s;
+        }
+
+        .version-switcher span.active {
+            background: var(--accent);
+            color: var(--primary);
+        }
+
+        .version-switcher a {
+            color: var(--text-secondary);
+        }
+
+        .version-switcher a:hover {
+            color: var(--text-primary);
+            background: rgba(255, 255, 255, 0.05);
+        }
+
         /* --- Hero --- */
         .hero {
             padding-top: 180px;
@@ -367,8 +402,12 @@
                 <div class="logo-icon">H</div> HERITAGE MGMT
             </div>
             <div class="nav-actions">
+                <a href="../../full-suite/index.html" class="btn-ui" style="text-decoration: none;">← PORTAL</a>
+                <div class="version-switcher">
+                    <span class="active">V1</span>
+                    <a href="../v2/property.html">V2</a>
+                </div>
                 <button class="btn-ui" onclick="toggleTheme()">DARK / LIGHT</button>
-                <button class="btn-ui">TENANT PORTAL</button>
             </div>
         </div>
     </nav>

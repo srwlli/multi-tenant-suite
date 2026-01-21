@@ -26,43 +26,43 @@
                     {
                         "id": "detailing",
                         "name": "Precision Detailing",
-                        "url": "detailing.html",
+                        "url": "../tier1/v1/detailing.html",
                         "category": "Auto"
                     },
                     {
                         "id": "mechanic",
                         "name": "Elite Mechanic",
-                        "url": "mechanic.html",
+                        "url": "../tier1/v1/mechanic.html",
                         "category": "Auto"
                     },
                     {
                         "id": "property",
                         "name": "CLE Property Pro",
-                        "url": "property.html",
+                        "url": "../tier1/v1/property.html",
                         "category": "Real Estate"
                     },
                     {
                         "id": "maintenance",
                         "name": "Field Ops Maintenance",
-                        "url": "maintenance.html",
+                        "url": "../tier1/v1/maintenance.html",
                         "category": "Property"
                     },
                     {
                         "id": "foodtruck",
                         "name": "CLE Taco Truck",
-                        "url": "foodtruck.html",
+                        "url": "../tier1/v1/foodtruck.html",
                         "category": "Food"
                     },
                     {
                         "id": "moving",
                         "name": "Rapid Movers",
-                        "url": "moving.html",
+                        "url": "../tier1/v1/moving.html",
                         "category": "Logistics"
                     },
                     {
                         "id": "salon",
                         "name": "Euphoric Salon",
-                        "url": "salon.html",
+                        "url": "../tier1/v1/salon.html",
                         "category": "Beauty"
                     }
                 ]

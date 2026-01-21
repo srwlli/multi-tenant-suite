@@ -221,6 +221,8 @@ interface TenantConfig {
   id: string;
   name: string;
   logo?: string;                 // Tenant logo URL
+  url?: string;                  // Mock-up URL (e.g. ../tier1/v1/detailing.html)
+  category?: string;              // Industry category
   defaultLayout: string;         // Primary layout to use
   layouts?: string[];             // Available layouts for this tenant
   features?: {
@@ -265,6 +267,18 @@ interface AppConfig {
   layouts: Record<string, LayoutConfig>;
 }
 ```
+
+### Mock-up Pathing (Suite Portal)
+
+Industry mock-ups follow a tiered and versioned directory structure:
+
+`../html-mock-ups/[tier]/[version]/[tenant].html`
+
+- **Tier**: Category of industry volume (e.g., `tier1`).
+- **Version**: Design iteration (e.g., `v1` for standard, `v2` for premium).
+- **Tenant**: Industry identifier (e.g., `detailing`, `salon`).
+
+**Example URL Pattern**: `../tier1/v1/detailing.html`
 
 ## State Management Schemas
 
@@ -787,7 +801,40 @@ const layout: LayoutConfig = {
 };
 ```
 
-## References
+## V2 Premium Architecture (Golden Standard)
+
+This section defines the "Typographic Minimalist" schema used for V2 (Premium) mock-ups. All V2 mock-ups MUST adhere to these standards to maintain a cohesive high-end experience.
+
+### Component Logic
+
+| Component | Standard Specification |
+| :--- | :--- |
+| **Logo** | Mixed-case simple text (e.g., `Euphoric`, `Precision Auto`) |
+| **Primary Buttons** | `.btn-cta`: **Pill Shape** (`border-radius: 100px`) |
+| **Secondary Links** | `.btn-ghost`: Transparent background, `600` weight, `1px` letter-spacing, `0.6` opacity (hover: `1.0`) |
+| **Section Labels** | `.section-tag`: Tiny caps, `3px` letter-spacing, `800` weight, bottom-margin `16px` |
+| **Navigation Actions** | Version Switcher, Theme Toggle (Icon), Phone CTA (Ghost), Book CTA (Pill) |
+| **Footer** | Centered single-line text, `0.5` opacity, `2px` letter-spacing |
+
+### Token Standards
+
+- **Typography**: Primary focus on `Outfit` weight `300` (Light) for headings.
+- **Glassmorphism**: `30px` backdrop-filter, `0.03` surface opacity.
+- **Spacing**: Widgets must use `50px` internal padding for "Enterprise" breathability.
+- **Radius**: Large external radii (`--radius-xl: 40px`).
+
+### Interactive Requirements
+
+- **Mouse-Drift Effect**: V2 pages must include a light JS listener to drift background `glow-orb` elements based on mouse position.
+
+```javascript
+document.addEventListener('mousemove', (e) => {
+    const x = e.clientX / window.innerWidth;
+    const y = e.clientY / window.innerHeight;
+    orbs[0].style.transform = `translate(${x * 50}px, ${y * 50}px)`;
+});
+```
+
 
 - [TypeScript Handbook](https://www.typescriptlang.org/docs/handbook/intro.html)
 - See [API.md](./API.md) for API usage examples

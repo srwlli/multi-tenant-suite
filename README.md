@@ -29,6 +29,11 @@ latest-app/
 │   ├── widgets/      # Widget implementations
 │   ├── config/       # Configuration schemas and data
 │   └── testing/      # Testing utilities and mocks
+├── html-mock-ups/    # Industry-specific HTML prototypes
+│   ├── tier1/        # High-volume industry sectors
+│   │   ├── v1/       # Standard operational layouts
+│   │   └── v2/       # Premium ethereal layouts (header CTAs)
+│   └── full-suite/   # Unified portal for all mock-ups
 └── coderef/          # Documentation and planning
 ```
 

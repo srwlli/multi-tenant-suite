@@ -92,6 +92,11 @@ latest-app/
 │   ├── widgets/      # Widget implementations
 │   ├── config/       # Configuration schemas and data
 │   └── testing/      # Testing utilities and mocks
+├── html-mock-ups/    # Industry-specific HTML prototypes (Tiered & Versioned)
+│   ├── tier1/        # Auto, Real Estate, Field Services, Food, Logistics, Beauty
+│   │   ├── v1/       # Standard operational layouts
+│   │   └── v2/       # Premium ethereal layouts
+│   └── full-suite/   # Portal UI for cross-tenant navigation
 └── coderef/          # Documentation and planning
 ```
 

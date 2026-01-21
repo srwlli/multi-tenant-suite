@@ -6,34 +6,35 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CLE Precision Auto Spa | Cleveland's Premium Detailing</title>
     <link
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;600;700;800;900&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@300;400;600;700;800;900&display=swap"
         rel="stylesheet">
     <style>
         :root {
-            --primary: #020617;
-            --secondary: #0f172a;
-            --accent: #38bdf8;
-            --accent-soft: #0ea5e9;
-            --accent-glow: rgba(56, 189, 248, 0.4);
-            --text-primary: #f8fafc;
-            --text-secondary: #94a3b8;
-            --surface: rgba(15, 23, 42, 0.6);
+            --primary: #0a0a0b;
+            --secondary: #161618;
+            --accent: #e5dada;
+            /* Ethereal Putty/Sand */
+            --accent-soft: #f4f1f1;
+            --accent-glow: rgba(229, 218, 218, 0.2);
+            --text-primary: #ffffff;
+            --text-secondary: #a1a1aa;
+            --surface: rgba(255, 255, 255, 0.03);
             --border: rgba(255, 255, 255, 0.08);
-            --radius-xl: 32px;
-            --radius-lg: 20px;
-            --transition: cubic-bezier(0.4, 0, 0.2, 1);
+            --radius-xl: 40px;
+            --radius-lg: 24px;
+            --transition: cubic-bezier(0.23, 1, 0.32, 1);
         }
 
         [data-theme="light"] {
-            --primary: #f8fafc;
-            --secondary: #f1f5f9;
-            --accent: #0ea5e9;
-            --accent-soft: #0284c7;
-            --accent-glow: rgba(14, 165, 233, 0.2);
-            --text-primary: #0f172a;
-            --text-secondary: #475569;
-            --surface: rgba(255, 255, 255, 0.8);
-            --border: rgba(0, 0, 0, 0.05);
+            --primary: #fafafa;
+            --secondary: #f4f4f5;
+            --accent: #27272a;
+            --accent-soft: #3f3f46;
+            --accent-glow: rgba(39, 39, 42, 0.1);
+            --text-primary: #09090b;
+            --text-secondary: #71717a;
+            --surface: rgba(0, 0, 0, 0.03);
+            --border: rgba(0, 0, 0, 0.08);
         }
 
         * {
@@ -57,40 +58,29 @@
         h4,
         .outfit {
             font-family: 'Outfit', sans-serif;
+            font-weight: 300;
+            /* Light/Elegant weight */
         }
 
-        /* --- Background Animation --- */
-        .bg-glow {
+        /* --- Dreamy Background --- */
+        .bg-ethereal {
             position: fixed;
             top: 0;
             left: 0;
             width: 100vw;
             height: 100vh;
-            background: linear-gradient(125deg, var(--primary) 0%, #0c4a6e 100%);
             z-index: -1;
+            background: radial-gradient(circle at 10% 10%, #1a1a1d 0%, var(--primary) 50%);
         }
 
-        .bg-glow::after {
-            content: '';
+        .glow-orb {
             position: absolute;
-            top: -10%;
-            right: -10%;
-            width: 60%;
-            height: 60%;
+            width: 600px;
+            height: 600px;
             background: radial-gradient(circle, var(--accent-glow) 0%, transparent 70%);
             filter: blur(80px);
+            border-radius: 50%;
             z-index: -1;
-            animation: float 20s infinite alternate linear;
-        }
-
-        @keyframes float {
-            from {
-                transform: translate(0, 0);
-            }
-
-            to {
-                transform: translate(-10%, 10%);
-            }
         }
 
         /* --- Custom Scrollbar --- */
@@ -111,28 +101,28 @@
             background: var(--accent);
         }
 
-        .container {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 0 40px;
-        }
-
-        /* --- Sticky Nav (Utility Bar) --- */
+        /* --- Navigation --- */
         nav {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             z-index: 1000;
-            padding: 20px 0;
-            transition: all 0.3s;
+            padding: 32px 0;
+            transition: all 0.5s var(--transition);
         }
 
         nav.scrolled {
-            background: rgba(2, 6, 23, 0.8);
-            backdrop-filter: blur(20px);
-            padding: 12px 0;
+            padding: 16px 0;
+            background: rgba(var(--primary-rgb, 10, 10, 11), 0.7);
+            backdrop-filter: blur(30px);
             border-bottom: 1px solid var(--border);
+        }
+
+        .container {
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 0 40px;
         }
 
         .nav-content {
@@ -142,15 +132,17 @@
         }
 
         .logo {
-            font-weight: 900;
-            font-size: 1.5rem;
-            letter-spacing: -1px;
-            color: var(--accent);
+            font-size: 1.4rem;
+            letter-spacing: 4px;
             text-transform: uppercase;
+            font-weight: 200;
+            color: var(--accent);
+            text-decoration: none;
         }
 
         .nav-actions {
             display: flex;
+            align-items: center;
             gap: 12px;
         }
 
@@ -172,6 +164,59 @@
             transform: translateY(-2px);
         }
 
+        /* --- Version Switcher --- */
+        .version-switcher {
+            display: flex;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 4px;
+            gap: 4px;
+            backdrop-filter: blur(10px);
+        }
+
+        .version-switcher a,
+        .version-switcher span {
+            padding: 6px 12px;
+            border-radius: 8px;
+            font-size: 0.75rem;
+            font-weight: 750;
+            text-decoration: none;
+            transition: all 0.2s;
+        }
+
+        .version-switcher span.active {
+            background: var(--accent);
+            color: #000;
+        }
+
+        .version-switcher a {
+            color: var(--text-secondary);
+        }
+
+        .version-switcher a:hover {
+            color: var(--text-primary);
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .btn-cta {
+            padding: 10px 20px;
+            border-radius: 12px;
+            font-weight: 800;
+            text-decoration: none;
+            font-size: 0.85rem;
+            transition: all 0.3s var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-cta:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px -5px var(--accent-glow);
+            filter: brightness(1.1);
+        }
+
         /* --- Hero Section --- */
         .hero {
             padding-top: 180px;
@@ -182,7 +227,7 @@
 
         .hero-badge {
             display: inline-block;
-            background: rgba(56, 189, 248, 0.1);
+            background: rgba(229, 218, 218, 0.1);
             color: var(--accent);
             padding: 8px 16px;
             border-radius: 100px;
@@ -190,15 +235,15 @@
             font-weight: 800;
             text-transform: uppercase;
             letter-spacing: 1px;
-            border: 1px solid rgba(56, 189, 248, 0.2);
+            border: 1px solid rgba(229, 218, 218, 0.2);
             margin-bottom: 24px;
         }
 
         .hero h1 {
             font-size: 5rem;
-            font-weight: 900;
+            font-weight: 300;
             line-height: 1;
-            letter-spacing: -3px;
+            letter-spacing: -1px;
             margin-bottom: 24px;
             background: linear-gradient(to bottom right, #fff 40%, rgba(255, 255, 255, 0.4));
             -webkit-background-clip: text;
@@ -514,36 +559,6 @@
             }
         }
 
-        /* --- Floating Contact Bar --- */
-        .contact-cta {
-            position: fixed;
-            bottom: 40px;
-            left: 50%;
-            transform: translateX(-50%);
-            display: flex;
-            gap: 12px;
-            z-index: 2000;
-        }
-
-        .cta-pill {
-            background: #fff;
-            color: #000;
-            padding: 16px 28px;
-            border-radius: 100px;
-            font-weight: 800;
-            font-size: 0.95rem;
-            text-decoration: none;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.4);
-            transition: all 0.3s;
-        }
-
-        .cta-pill:hover {
-            transform: translateY(-4px) scale(1.05);
-        }
-
         .cta-pill.dark {
             background: var(--secondary);
             color: #fff;
@@ -554,14 +569,26 @@
 
 <body>
 
-    <div class="bg-glow"></div>
+    <div class="bg-ethereal"></div>
+    <div class="glow-orb" style="top: -100px; right: -100px;"></div>
+    <div class="glow-orb" style="bottom: -200px; left: -200px; opacity: 0.5;"></div>
 
     <nav id="navbar">
         <div class="container nav-content">
-            <div class="logo">Precision SPA</div>
+            <a href="../../full-suite/index.html" class="logo">Precision SPA</a>
             <div class="nav-actions">
-                <button class="btn-ui" onclick="toggleTheme()">DARK / LIGHT</button>
-                <button class="btn-ui">OHIO CITY • CLEVELAND</button>
+                <div class="version-switcher">
+                    <a href="../v1/detailing.html">V1</a>
+                    <span class="active">V2</span>
+                </div>
+                <button class="btn-ui" onclick="toggleTheme()">THEME</button>
+                <a href="tel:2165550199" class="btn-cta" style="background: var(--accent); color: #000;">
+                    <span>📞 216.555.0199</span>
+                </a>
+                <a href="#quote" class="btn-cta"
+                    style="background: var(--secondary); color: #fff; border: 1px solid var(--border);">
+                    <span>BOOK NOW</span>
+                </a>
             </div>
         </div>
     </nav>
@@ -667,10 +694,14 @@
         </div>
     </main>
 
-    <div class="contact-cta">
-        <a href="tel:2165550199" class="cta-pill">📞 CALL STUDIO</a>
-        <a href="#" class="cta-pill dark">💬 SMS MARCUS</a>
-    </div>
+    <footer style="padding: 60px 0; border-top: 1px solid var(--border); margin-top: 100px;">
+        <div class="container"
+            style="display: flex; justify-content: space-between; align-items: center; opacity: 0.5; font-size: 0.8rem; letter-spacing: 1px;">
+            <div>© 2026 CLE PRECISION AUTO SPA</div>
+            <div>2819 LORAIN AVE, CLEVELAND, OH</div>
+        </div>
+    </footer>
+
 
 
     <script>

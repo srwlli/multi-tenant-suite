@@ -6,34 +6,35 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CLE Taco Truck | Global Flavors in Cleveland</title>
     <link
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;600;700;800;900&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@300;400;600;700;800;900&display=swap"
         rel="stylesheet">
     <style>
         :root {
-            --primary: #431407;
-            --secondary: #78350f;
-            --accent: #f59e0b;
-            --accent-soft: #fbbf24;
-            --accent-glow: rgba(245, 158, 11, 0.4);
-            --text-primary: #fff7ed;
-            --text-secondary: #fed7aa;
-            --surface: rgba(67, 20, 7, 0.6);
-            --border: rgba(255, 255, 255, 0.1);
-            --radius-xl: 32px;
-            --radius-lg: 20px;
-            --transition: cubic-bezier(0.4, 0, 0.2, 1);
+            --primary: #0a0a0b;
+            --secondary: #161618;
+            --accent: #e5dada;
+            /* Ethereal Putty/Sand */
+            --accent-soft: #f4f1f1;
+            --accent-glow: rgba(229, 218, 218, 0.2);
+            --text-primary: #ffffff;
+            --text-secondary: #a1a1aa;
+            --surface: rgba(255, 255, 255, 0.03);
+            --border: rgba(255, 255, 255, 0.08);
+            --radius-xl: 40px;
+            --radius-lg: 24px;
+            --transition: cubic-bezier(0.23, 1, 0.32, 1);
         }
 
         [data-theme="light"] {
-            --primary: #fff7ed;
-            --secondary: #ffedd5;
-            --accent: #d97706;
-            --accent-soft: #b45309;
-            --accent-glow: rgba(217, 119, 6, 0.2);
-            --text-primary: #431407;
-            --text-secondary: #78350f;
-            --surface: rgba(255, 255, 255, 0.8);
-            --border: rgba(0, 0, 0, 0.05);
+            --primary: #fafafa;
+            --secondary: #f4f4f5;
+            --accent: #27272a;
+            --accent-soft: #3f3f46;
+            --accent-glow: rgba(39, 39, 42, 0.1);
+            --text-primary: #09090b;
+            --text-secondary: #71717a;
+            --surface: rgba(0, 0, 0, 0.03);
+            --border: rgba(0, 0, 0, 0.08);
         }
 
         * {
@@ -57,42 +58,29 @@
         h4,
         .outfit {
             font-family: 'Outfit', sans-serif;
+            font-weight: 300;
+            /* Light/Elegant weight */
         }
 
-        /* --- Background Animation --- */
-        .bg-glow {
+        /* --- Dreamy Background --- */
+        .bg-ethereal {
             position: fixed;
             top: 0;
             left: 0;
             width: 100vw;
             height: 100vh;
-            background: radial-gradient(circle at 0% 0%, var(--secondary) 0%, var(--primary) 70%);
             z-index: -1;
+            background: radial-gradient(circle at 10% 10%, #1a1a1d 0%, var(--primary) 50%);
         }
 
-        .bg-glow::after {
-            content: '';
+        .glow-orb {
             position: absolute;
-            bottom: -10%;
-            left: -10%;
-            width: 60%;
-            height: 60%;
+            width: 600px;
+            height: 600px;
             background: radial-gradient(circle, var(--accent-glow) 0%, transparent 70%);
             filter: blur(80px);
+            border-radius: 50%;
             z-index: -1;
-            animation: pulse 10s infinite alternate linear;
-        }
-
-        @keyframes pulse {
-            from {
-                transform: scale(1);
-                opacity: 0.5;
-            }
-
-            to {
-                transform: scale(1.2);
-                opacity: 0.8;
-            }
         }
 
         .container {
@@ -101,22 +89,28 @@
             padding: 0 40px;
         }
 
-        /* --- Sticky Nav --- */
+        /* --- Navigation --- */
         nav {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             z-index: 1000;
-            padding: 20px 0;
-            transition: all 0.3s;
+            padding: 32px 0;
+            transition: all 0.5s var(--transition);
         }
 
         nav.scrolled {
-            background: rgba(67, 20, 7, 0.8);
-            backdrop-filter: blur(20px);
-            padding: 12px 0;
+            padding: 16px 0;
+            background: rgba(var(--primary-rgb, 10, 10, 11), 0.7);
+            backdrop-filter: blur(30px);
             border-bottom: 1px solid var(--border);
+        }
+
+        .container {
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 0 40px;
         }
 
         .nav-content {
@@ -126,11 +120,11 @@
         }
 
         .logo {
-            font-weight: 900;
-            font-size: 1.5rem;
-            letter-spacing: -1px;
-            color: var(--accent);
+            font-size: 1.4rem;
+            letter-spacing: 4px;
             text-transform: uppercase;
+            font-weight: 200;
+            color: var(--accent);
         }
 
         .nav-actions {
@@ -149,6 +143,56 @@
             font-size: 0.85rem;
             backdrop-filter: blur(10px);
             transition: all 0.2s;
+            text-decoration: none;
+        }
+
+        /* --- Version Switcher --- */
+        .version-switcher {
+            display: flex;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 4px;
+            gap: 4px;
+            backdrop-filter: blur(10px);
+        }
+
+        .version-switcher a,
+        .version-switcher span {
+            padding: 6px 12px;
+            border-radius: 8px;
+            font-size: 0.75rem;
+            font-weight: 750;
+            text-decoration: none;
+            transition: all 0.2s;
+        }
+
+        .version-switcher span.active {
+            background: var(--accent);
+            color: var(--primary);
+        }
+
+        .version-switcher a {
+            color: var(--text-secondary);
+        }
+
+        .version-switcher a:hover {
+            color: var(--text-primary);
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .btn-cta {
+            padding: 10px 20px;
+            border-radius: 12px;
+            font-weight: 800;
+            text-decoration: none;
+            font-size: 0.85rem;
+            transition: all 0.3s var(--transition);
+        }
+
+        .btn-cta:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px -5px var(--accent-glow);
         }
 
         /* --- Hero Section --- */
@@ -161,7 +205,7 @@
 
         .hero-badge {
             display: inline-block;
-            background: rgba(245, 158, 11, 0.1);
+            background: rgba(229, 218, 218, 0.1);
             color: var(--accent);
             padding: 8px 16px;
             border-radius: 100px;
@@ -169,18 +213,19 @@
             font-weight: 800;
             text-transform: uppercase;
             letter-spacing: 1px;
-            border: 1px solid rgba(245, 158, 11, 0.2);
+            border: 1px solid rgba(229, 218, 218, 0.2);
             margin-bottom: 24px;
         }
 
         .hero h1 {
             font-size: 5rem;
-            font-weight: 900;
+            font-weight: 300;
             line-height: 1;
-            letter-spacing: -3px;
+            letter-spacing: -1px;
             margin-bottom: 24px;
             background: linear-gradient(to right, #fff, var(--accent));
             -webkit-background-clip: text;
+            background-clip: text;
             -webkit-text-fill-color: transparent;
         }
 
@@ -369,30 +414,6 @@
             cursor: pointer;
         }
 
-        /* Floating Contact */
-        .contact-pills {
-            position: fixed;
-            bottom: 40px;
-            left: 50%;
-            transform: translateX(-50%);
-            display: flex;
-            gap: 12px;
-            z-index: 2000;
-        }
-
-        .pill {
-            background: #fff;
-            color: #000;
-            padding: 14px 24px;
-            border-radius: 100px;
-            font-weight: 800;
-            text-decoration: none;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
         .pill.dark {
             background: var(--secondary);
             color: #fff;
@@ -425,14 +446,26 @@
 
 <body>
 
-    <div class="bg-glow"></div>
+    <div class="bg-ethereal"></div>
+    <div class="glow-orb" style="top: -100px; right: -100px;"></div>
+    <div class="glow-orb" style="bottom: -200px; left: -200px; opacity: 0.5;"></div>
 
     <nav id="navbar">
         <div class="container nav-content">
-            <div class="logo">🌮 CLE TACO</div>
+            <a href="../../full-suite/index.html" class="logo" style="text-decoration: none;">🌮 CLE TACO</a>
             <div class="nav-actions">
-                <button class="btn-ui" onclick="toggleTheme()">DARK / LIGHT</button>
-                <button class="btn-ui">📍 TRACK TRUCK</button>
+                <div class="version-switcher">
+                    <a href="../v1/foodtruck.html">V1</a>
+                    <span class="active">V2</span>
+                </div>
+                <button class="btn-ui" onclick="toggleTheme()">THEME</button>
+                <a href="tel:2165550200" class="btn-cta" style="background: var(--accent); color: var(--primary);">
+                    <span>📞 216.555.0200</span>
+                </a>
+                <a href="#catering" class="btn-cta"
+                    style="background: var(--secondary); color: #fff; border: 1px solid var(--border);">
+                    <span>CATERING</span>
+                </a>
             </div>
         </div>
     </nav>
@@ -519,10 +552,14 @@
         </div>
     </main>
 
-    <div class="contact-pills">
-        <a href="tel:2165550200" class="pill">📞 CALL TRUCK</a>
-        <a href="#" class="pill dark">📸 INSTAGRAM</a>
-    </div>
+    <footer style="padding: 60px 0; border-top: 1px solid var(--border); margin-top: 100px;">
+        <div class="container"
+            style="display: flex; justify-content: space-between; align-items: center; opacity: 0.5; font-size: 0.8rem; letter-spacing: 1px;">
+            <div>© 2026 CLE TACO TRUCK</div>
+            <div>ON THE MOVE, CLEVELAND, OH</div>
+        </div>
+    </footer>
+
 
     <script>
         window.addEventListener('scroll', function () {

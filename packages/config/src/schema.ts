@@ -79,6 +79,10 @@ export interface TenantConfig {
   name: string;
   /** Tenant logo URL */
   logo?: string;
+  /** Prototype/Mock-up URL */
+  url?: string;
+  /** Industry category */
+  category?: string;
   /** Primary layout to use */
   defaultLayout: string;
   /** Available layouts for this tenant */

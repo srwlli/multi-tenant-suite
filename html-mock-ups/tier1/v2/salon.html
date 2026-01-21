@@ -160,6 +160,41 @@
             opacity: 1;
         }
 
+        /* --- Version Switcher --- */
+        .version-switcher {
+            display: flex;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 4px;
+            gap: 4px;
+            backdrop-filter: blur(10px);
+        }
+
+        .version-switcher a,
+        .version-switcher span {
+            padding: 6px 12px;
+            border-radius: 8px;
+            font-size: 0.75rem;
+            font-weight: 750;
+            text-decoration: none;
+            transition: all 0.2s;
+        }
+
+        .version-switcher span.active {
+            background: var(--accent);
+            color: var(--primary);
+        }
+
+        .version-switcher a {
+            color: var(--text-secondary);
+        }
+
+        .version-switcher a:hover {
+            color: var(--text-primary);
+            background: rgba(255, 255, 255, 0.05);
+        }
+
         /* --- Hero --- */
         .hero {
             padding-top: 240px;
@@ -383,6 +418,11 @@
         <div class="container nav-content">
             <div class="logo">Euphoric</div>
             <div class="nav-actions">
+                <a href="../../full-suite/index.html" class="btn-ghost">← PORTAL</a>
+                <div class="version-switcher">
+                    <a href="../v1/salon.html">V1</a>
+                    <span class="active">V2</span>
+                </div>
                 <a href="tel:4405550900" class="btn-ghost" style="margin-right: 10px;">(440) 555-0900</a>
                 <a href="#booking" class="btn-cta">Book Appointment</a>
             </div>
