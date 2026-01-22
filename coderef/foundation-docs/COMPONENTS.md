@@ -750,5 +750,7 @@ Components use the `cn` utility from ```packages/ui/src/lib/utils.ts``` for cond
 - [Radix UI Primitives](https://www.radix-ui.com/primitives)
 - [Tailwind CSS](https://tailwindcss.com)
 - See [API.md](./API.md) for widget SDK APIs
-- See [SCHEMA.md](./SCHEMA.md) for component prop types
+- See [SCHEMA.md](../schemas/SCHEMA.md) for data models
+- See [V2-MAPPING.md](../schemas/V2-COMPONENT-MAPPING.md) for Next.js mapping
 - See [ARCHITECTURE.md](./ARCHITECTURE.md) for component architecture
+

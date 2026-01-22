@@ -481,7 +481,9 @@ export function Widget({ className = "" }: WidgetProps) {
 ## References
 
 - [API Documentation](../foundation-docs/API.md) - Complete API reference
-- [Schema Documentation](../foundation-docs/SCHEMA.md) - Data models and types
+- [Schema Documentation](../schemas/SCHEMA.md) - Data models and types
+- [V2 Component Mapping](../schemas/V2-COMPONENT-MAPPING.md) - Next.js mapping
 - [Components Documentation](../foundation-docs/COMPONENTS.md) - UI component reference
 - [Architecture Documentation](../foundation-docs/ARCHITECTURE.md) - System architecture
+
 - [Architecture Decision Guide](../ARCHITECTURE-GUIDE.md) - Where code should go

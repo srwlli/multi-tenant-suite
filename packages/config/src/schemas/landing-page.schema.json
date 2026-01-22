@@ -12,6 +12,15 @@
         "actions"
     ],
     "properties": {
+        "theme": {
+            "type": "string",
+            "enum": [
+                "ethereal",
+                "minimal",
+                "standard"
+            ],
+            "default": "standard"
+        },
         "id": {
             "type": "string",
             "pattern": "^[a-z0-9-]+$"
@@ -63,6 +72,9 @@
                     "title": {
                         "type": "string"
                     },
+                    "tagline": {
+                        "type": "string"
+                    },
                     "content": {
                         "type": "object"
                     }
@@ -76,6 +88,15 @@
                 "items"
             ],
             "properties": {
+                "style": {
+                    "type": "string",
+                    "enum": [
+                        "pill",
+                        "rounded",
+                        "sharp"
+                    ],
+                    "default": "rounded"
+                },
                 "mode": {
                     "type": "string",
                     "enum": [

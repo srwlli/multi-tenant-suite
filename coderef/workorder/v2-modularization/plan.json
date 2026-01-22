@@ -1,0 +1,110 @@
+{
+    "META_DOCUMENTATION": {
+        "feature_name": "v2-modularization-alignment",
+        "workorder_id": "WO-V2-MODULARIZATION-001",
+        "version": "1.0.0",
+        "status": "planning",
+        "generated_by": "Antigravity Agentic Assistant",
+        "has_context": true,
+        "has_analysis": true,
+        "uds": {
+            "generated_by": "coderef-workflow v2.0.0",
+            "document_type": "Implementation Plan",
+            "last_updated": "2026-01-20",
+            "ai_assistance": true,
+            "next_review": "2026-02-19"
+        }
+    },
+    "UNIVERSAL_PLANNING_STRUCTURE": {
+        "0_preparation": {
+            "foundation_docs": [
+                "coderef/schemas/SCHEMA.md",
+                "coderef/foundation-docs/COMPONENTS.md",
+                "coderef/documents/complete-widgets-list.md"
+            ],
+            "reference_patterns": [
+                "Salon V2 Golden Standard (Typographic Minimalist)",
+                "Atomic Design (CSS extraction)",
+                "Next.js component-first architecture mapping"
+            ],
+            "key_decisions": [
+                "Extract modular CSS into `html-mock-ups/tier1/v2/components/`",
+                "Use `.btn-cta` with pill shapes (100px radius) as the premium standard",
+                "Implement JS-driven Mouse-Drift orbs on all V2 industry pages",
+                "Cross-reference all custom components with the Master Widget List"
+            ]
+        },
+        "1_executive_summary": {
+            "purpose": "Align all V2 industry mock-ups with the Salon V2 high-end architectural standard and modularize the codebase for future Next.js parity.",
+            "value_proposition": "Ensures design consistency across all premium industry templates and creates a portable component library that simplifies the eventual React/Next.js migration.",
+            "real_world_analogy": "Refining a series of custom high-end boutiques to follow a shared architectural language and building a prefabricated kit of parts for rapid subsequent construction.",
+            "use_case": "User navigates between Detailing V2 and Mechanic V2 → Experiences identical interaction patterns, typography, and premium 'Ethereal' feel.",
+            "output": "Standardized V2 industry pages + Modular CSS component library"
+        },
+        "2_risk_assessment": {
+            "overall_risk": "low",
+            "complexity": "medium (recursive extraction across 7 HTML files)",
+            "scope": "14 mock-up variants + centralized component library",
+            "file_system_risk": "low (targeted edits to mock-ups and new CSS files)",
+            "dependencies": [
+                "Salon V2 (Existing Golden Standard)",
+                "Outfit font-family availability",
+                "Browser support for backdrop-filter (blur)"
+            ],
+            "breaking_changes": "none (visual and organizational only)"
+        },
+        "3_current_state_analysis": {
+            "affected_files": [
+                "html-mock-ups/tier1/v2/detailing.html",
+                "html-mock-ups/tier1/v2/foodtruck.html",
+                "html-mock-ups/tier1/v2/mechanic.html",
+                "html-mock-ups/tier1/v2/moving.html",
+                "html-mock-ups/tier1/v2/property.html",
+                "html-mock-ups/tier1/v2/maintenance.html",
+                "html-mock-ups/tier1/v2/components/Shared.css",
+                "html-mock-ups/tier1/v2/components/Header.css",
+                "html-mock-ups/tier1/v2/components/Hero.css",
+                "html-mock-ups/tier1/v2/components/Widget.css",
+                "html-mock-ups/tier1/v2/components/Footer.css"
+            ]
+        },
+        "4_key_features": {
+            "primary_features": [
+                {
+                    "feature": "Golden Standard Alignment",
+                    "description": "Porting Salon V2's premium design language (pills, ghost links, mixed-case logos) to all V2 variants.",
+                    "acceptance_criteria": [
+                        "All CTAs are pill-shaped (100px radius)",
+                        "Secondary buttons use .btn-ghost",
+                        "Background orbs respond to mouse movement"
+                    ]
+                },
+                {
+                    "feature": "Modular Component Extraction",
+                    "description": "Splitting monolithic styles into portable CSS files organized by component names from the Widget List.",
+                    "acceptance_criteria": [
+                        "CSS files created in /components/ directory",
+                        "Industry pages link to external modular CSS",
+                        "Component class names match development naming conventions"
+                    ]
+                }
+            ]
+        },
+        "5_task_id_system": {
+            "tasks": [
+                "ALIGN-001: Standardize Logo and Navigation Links across all V2 variants",
+                "ALIGN-002: Implement V2 Footers (Centered, minimal) for all industries",
+                "ALIGN-003: Update Buttons to 'Pill' style standard",
+                "ALIGN-004: Port JS Mouse-Drift effect logic to all V2 industry pages",
+                "MOD-001: Initialize html-mock-ups/tier1/v2/components/ directory",
+                "MOD-002: Extract 'Base Tokens' and 'Glow Orbs' into Shared.css",
+                "MOD-003: Extract Navigation and Header logic into Header.css",
+                "MOD-004: Extract Hero Typography and Scaling into Hero.css",
+                "MOD-005: Extract Card/Widget Glassmorphism and Padding into Widget.css",
+                "MOD-006: Extract Footer styles into Footer.css",
+                "VERIFY-001: Visual audit of all 7 V2 industries against Salon V2 benchmark",
+                "VERIFY-002: Cross-reference extracted CSS with Next.js component mapping patterns"
+            ]
+        }
+    }
+}

@@ -666,5 +666,7 @@ function SettingsWidget() {
 - [Electron IPC Documentation](https://www.electronjs.org/docs/latest/api/ipc-main)
 - [Zustand Store Documentation](https://github.com/pmndrs/zustand)
 - [React Hooks Documentation](https://react.dev/reference/react)
-- See [SCHEMA.md](./SCHEMA.md) for data model definitions
+- See [SCHEMA.md](../schemas/SCHEMA.md) for data model definitions
+- See [V2-MAPPING.md](../schemas/V2-COMPONENT-MAPPING.md) for Next.js mapping
 - See [ARCHITECTURE.md](./ARCHITECTURE.md) for system architecture
+

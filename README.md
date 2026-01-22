@@ -13,6 +13,23 @@ A platform-agnostic dashboard application built with React, TypeScript, and mode
 - **Data Integration** - REST API, WebSocket, and File System data sources
 - **Developer Experience** - Clear architecture, comprehensive documentation, and testing utilities
 
+## Current Project State
+
+### 🏗️ Active Development
+The project is currently in the **Next.js Transition Phase**.
+- **Next.js Stack (`apps/web`)**: The core application infrastructure is built. It features a generic Dashboard driven by JSON configurations. High-fidelity industry-specific pages (Salon, Detailing, etc.) are **not yet built in React**.
+- **JSON Schemas (`packages/config`)**: The "Engine" is fully functional. Active JSON schemas define the rules for multi-tenant data and premium V2 layouts.
+
+### 📂 Off-Repo Reference Materials
+To maintain a clean production environment, all plain HTML/CSS mock-ups and human-readable design documentation have been decoupled from this repository.
+- **Location**: `C:\Users\willh\Desktop\industry-prototypes\`
+- **Contents**:
+  - `html-mock-ups/`: High-fidelity industry prototypes used as design benchmarks.
+  - `SCHEMA.md`: Technical manual for data models.
+  - `STYLING-GUIDE.md`: Design tokens and Ethereal V2 styling rules.
+  - `V2-COMPONENT-MAPPING.md`: Blueprint for mapping HTML sections to React components.
+
+
 ## Architecture Summary
 
 The Business Dashboard is built as a monorepo with the following structure:
@@ -29,12 +46,8 @@ latest-app/
 │   ├── widgets/      # Widget implementations
 │   ├── config/       # Configuration schemas and data
 │   └── testing/      # Testing utilities and mocks
-├── html-mock-ups/    # Industry-specific HTML prototypes
-│   ├── tier1/        # High-volume industry sectors
-│   │   ├── v1/       # Standard operational layouts
-│   │   └── v2/       # Premium ethereal layouts (header CTAs)
-│   └── full-suite/   # Unified portal for all mock-ups
 └── coderef/          # Documentation and planning
+
 ```
 
 ### Key Components
@@ -277,8 +290,10 @@ MyComponent.displayName = "MyComponent";
 Comprehensive documentation is available in `coderef/foundation-docs/`:
 
 - **[API.md](./coderef/foundation-docs/API.md)** - API reference for IPC handlers, data hooks, and store actions
-- **[SCHEMA.md](./coderef/foundation-docs/SCHEMA.md)** - Data models, TypeScript interfaces, and entity relationships
+- **[SCHEMA.md](./coderef/schemas/SCHEMA.md)** - Data models, TypeScript interfaces, and entity relationships
 - **[COMPONENTS.md](./coderef/foundation-docs/COMPONENTS.md)** - UI component reference with props and usage patterns
+
+
 - **[ARCHITECTURE.md](./coderef/foundation-docs/ARCHITECTURE.md)** - System architecture, design patterns, and decisions
 - **[ARCHITECTURE-GUIDE.md](./coderef/ARCHITECTURE-GUIDE.md)** - Decision guide for where code should go
 
